@@ -79,9 +79,15 @@
 
 	<section id="illustrations">
 		<h2>{{ sections.illustrations.title }}</h2>
-		{% for illustration in illustrations %}
-			<img src="{{ illustration.image.url }}" alt="{{ illustration.title }}" />
-		{% endfor %}
+
+		<div class="grid grid-cols-3 gap-8">
+			{% for illustration in illustrations %}
+				<img
+					src="{{ illustration.image.url }}"
+					alt="{{ illustration.title }}"
+				/>
+			{% endfor %}
+		</div>
 	</section>
 
 	{% with callout=sections.art_book_callout %}
