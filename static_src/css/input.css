@@ -9,9 +9,6 @@
    The heroicons SVGs come from the "heroicons" npm package. */
 @plugin "../vendor/heroicons";
 
-/* Single dark theme only — no daisyUI, no theme switching. Values ported
-   from the former daisyUI dark theme's CSS custom properties, now inlined
-   directly on :root. */
 :root {
 	color-scheme: dark;
 }
@@ -24,241 +21,48 @@
 @theme {
 	--default-font-family: 'Open Sans', sans-serif;
 	--font-display: 'Teko', serif;
-	--color-gold: rgb(215, 170, 93);
-	--color-blood: rgb(84, 13, 13);
-	--color-bone: rgb(250, 250, 250);
-	--color-base-100: rgb(18, 18, 18);
-	--color-base-200: color-mix(
-		in oklab,
-		var(--color-base-100),
-		rgb(0, 0, 0) 20%
-	);
-	--color-base-300: color-mix(
-		in oklab,
-		var(--color-base-100),
-		rgb(0, 0, 0) 40%
-	);
-	--color-base-400: color-mix(
-		in oklab,
-		var(--color-base-100),
-		rgb(0, 0, 0) 60%
-	);
-	--color-surface-100: color-mix(
-		in oklab,
-		var(--color-base-100),
-		rgb(255, 255, 255) 5%
-	);
-	--color-surface-200: color-mix(
-		in oklab,
-		var(--color-base-100),
-		rgb(255, 255, 255) 10%
-	);
-	--color-info: oklch(58% 0.158 241.966);
-	--color-success: rgba(142, 188, 96, 1);
-	--color-warning: oklch(66% 0.179 58.318);
-	--color-error: oklch(58% 0.253 17.585);
 }
 
 @utility font-body {
-	font-family: 'Open Sans', sans-serif;
+	font-family: var(--default-font-family);
 	font-optical-sizing: auto;
 	font-weight: 400;
 	font-style: normal;
 	font-variation-settings: 'wdth' 100;
 }
 @utility font-base-thin {
-	font-family: 'Open Sans', sans-serif;
+	font-family: var(--default-font-family);
 	font-optical-sizing: auto;
 	font-weight: 300;
 	font-style: normal;
 	font-variation-settings: 'wdth' 100;
 }
 @utility font-base-thick {
-	font-family: 'Open Sans', sans-serif;
+	font-family: var(--default-font-family);
 	font-optical-sizing: auto;
 	font-weight: 500;
 	font-style: normal;
 	font-variation-settings: 'wdth' 100;
 }
 @utility font-base-thicker {
-	font-family: 'Open Sans', sans-serif;
+	font-family: var(--default-font-family);
 	font-optical-sizing: auto;
 	font-weight: 650;
 	font-style: normal;
 	font-variation-settings: 'wdth' 100;
 }
 @utility font-base-thickest {
-	font-family: 'Open Sans', sans-serif;
+	font-family: var(--default-font-family);
 	font-optical-sizing: auto;
 	font-weight: 800;
 	font-style: normal;
 	font-variation-settings: 'wdth' 100;
 }
-@utility font-logo {
-	font-family: 'Marko One', serif;
-	font-weight: 400;
-	font-style: normal;
-}
 @utility font-display {
-	font-family: 'Film Noir Adventure', serif;
+	font-family: var(--font-display);
 	font-weight: 400;
 	font-style: normal;
-}
-
-@utility container {
-	@apply px-8 max-w-lg lg:max-w-7xl mx-auto lg:px-0;
-}
-
-@utility btn {
-	@apply inline-block py-2 px-4;
-}
-
-@utility btn-ghost {
-	@apply border border-gold rounded-sm text-gold font-semibold text-sm bg-gold/10 shadow-lg hover:text-white hover:bg-gold/50 transition-colors duration-500;
-}
-
-@utility btn-text {
-	@apply text-gold font-semibold text-sm rounded-sm bg-gold/0 border border-gold/0 hover:text-white hover:bg-gold/50 hover:border-gold transition-colors duration-500;
-}
-
-@utility bg-wood {
-	background:
-		linear-gradient(
-			to bottom,
-			--alpha(var(--color-black) / 40%),
-			--alpha(var(--color-surface-100) / 10%)
-		),
-		url(/static/images/wood-bg.jpg);
-}
-
-@utility bg-scales {
-	background:
-		linear-gradient(
-			to top,
-			--alpha(var(--color-black) / 90%),
-			--alpha(var(--color-base-200) / 50%)
-		),
-		url(../images/scales-pattern.png);
 }
 
 @layer components {
-	.site-header {
-		@apply lg:flex w-full lg:items-center lg:justify-center;
-	}
-	.site-header.compact {
-		@apply bg-cover bg-no-repeat lg:h-[3.75rem];
-		background-image: url(../images/hero-bg.jpg);
-		background-position: 50% 10%;
-	}
-	.site-header.with-hero {
-		@apply absolute;
-	}
-	.navbar {
-		@apply flex flex-col items-center lg:flex lg:flex-row lg:justify-between py-4;
-	}
-	.hero {
-		@apply bg-no-repeat bg-cover;
-		background-position: 50% 50%;
-		background-image: url(../images/hero-bg.jpg);
-		height: 495px;
-	}
-
-	.section-header {
-		@apply bg-linear-to-b from-surface-100 to-base-100/20 relative border-t-1 border-t-gold border-b-1 border-b-gold/50 flex flex-row flex-nowrap justify-stretch items-stretch bg-bottom-right;
-	}
-
-	.section-header .title {
-		@apply flex-shrink flex flex-row text-center mx-10 relative;
-	}
-	.section-header .title:before,
-	.section-header .title:after {
-		content: '';
-		background: url(../images/header-decoration.svg) no-repeat 50% 50%;
-		@apply absolute size-8;
-	}
-	.section-header .title:before {
-		@apply -left-[2.6rem];
-	}
-	.section-header .title:after {
-		@apply -right-[2.6rem] -scale-100;
-	}
-
-	.section-header:before,
-	.section-header:after {
-		content: '';
-		background: url(../images/lines.svg) repeat-x 0% 50%;
-		@apply h-[20px] flex-grow block my-auto bg-size-[auto_13px];
-	}
-
-	.footer {
-		@apply py-8 bg-cover;
-	}
-
-	form {
-		@apply flex flex-col gap-4 pt-4 lg:pt-8 border border-gold/60 bg-surface-100 rounded-xl shadow-xl shadow-black/80 m-auto;
-	}
-
-	.form-actions {
-		@apply mt-4 bg-surface-200 px-8 py-4 rounded-b-xl;
-	}
-
-	input[type='text'],
-	input[type='email'],
-	input[type='date'],
-	select,
-	textarea {
-		@apply w-full border border-gold/75 px-4 py-2 rounded text-sm bg-base-100;
-	}
-
-	select {
-		@apply appearance-none;
-	}
-
-	.field {
-		@apply flex flex-col gap-2 px-4 lg:px-8;
-	}
-
-	.field > label {
-		@apply text-lg text-gold/75;
-	}
-
-	.work-gallery-image__trigger {
-		@apply block w-full max-w-lg cursor-pointer m-auto;
-	}
-
-	.image-lightbox {
-		@apply bg-base-400/60 p-6 max-w-[90vw] max-h-[90vh] rounded-lg shadow-xl shadow-black/80 m-auto transition-all duration-300 ease-in-out overflow-visible;
-	}
-	.image-lightbox::backdrop {
-		@apply bg-base-100/60 backdrop-blur-sm transition-all duration-300 ease-in-out;
-	}
-	.image-lightbox__image {
-		@apply block w-auto h-auto max-w-[80vw] max-h-[80vh];
-	}
-	.image-lightbox__close {
-		@apply bg-gold/60 absolute -top-2 -right-2 text-black hover:bg-gold transition-all rounded-full duration-200;
-	}
-
-	.gallery-dialog__select img {
-		@apply w-auto h-auto max-h-16 max-w-32;
-	}
-	.gallery-dialog__nav button {
-		@apply opacity-60 hover:opacity-100 transition-opacity duration-200 ease-in-out;
-	}
-
-	.image-lightbox:open {
-		@apply opacity-100 translate-y-0;
-	}
-	.image-lightbox:open::backdrop {
-		@apply opacity-100 backdrop-blur-md;
-	}
-
-	@starting-style {
-		.image-lightbox:open {
-			@apply opacity-0 -translate-y-8;
-		}
-		.image-lightbox:open::backdrop {
-			@apply opacity-0 backdrop-blur-none;
-		}
-	}
 }
