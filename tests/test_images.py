@@ -43,6 +43,7 @@ def test_verbose_names_are_title_cased() -> None:
 @pytest.mark.django_db
 def test_upload_path_is_slug_plus_random_suffix_and_lowercase_ext() -> None:
     name = make_image(title="Dr. Ada #1!").image.name
+    assert name is not None
     assert name.startswith("images/dr-ada-1-")
     assert name.endswith(".png")
 
