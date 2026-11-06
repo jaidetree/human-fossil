@@ -272,8 +272,6 @@ def test_home_has_sections_in_context(client: Client) -> None:
 
 @pytest.mark.django_db
 def test_markdownify_keeps_raw_html() -> None:
-    make_section(
-        "raw_html", content='<div class="x"><span>hi</span><br><h2>T</h2></div>'
-    )
+    make_section("raw_html", content='<div class="x"><span>hi</span><br><h2>T</h2></div>')
     html = render("{{ sections.raw_html.content|markdownify }}")
     assert html == '<div class="x"><span>hi</span><br><h2>T</h2></div>'
