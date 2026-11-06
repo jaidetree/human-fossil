@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+
+exec pg_dump "$PROD_DATABASE_URL" -Fc --no-owner --no-acl -f production.dump
+
+dropdb --if-exists human_fossil_dev
+createdb human_fossil_dev
+
+exec pg_restore "$LOCAL_DATABASE_URL" --no-owner --no-acl -d human_fossil_dev production.dump
+exec uv run manage.py migrate 

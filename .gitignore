@@ -26,6 +26,7 @@ node_modules/
 postgres_data/
 .pgdata/
 .pgsocket/
+*.dump
 
 # Obsidian workspace state (local UI state, not project content).
 .human-fossil-vault/.obsidian/workspace*
