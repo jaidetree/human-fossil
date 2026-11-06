@@ -62,6 +62,36 @@ def test_configures_r2_backend_when_env_vars_present(
     assert options["access_key"] == "fake-access-key"
     assert options["secret_key"] == "fake-secret-key"
     assert options["region_name"] == "auto"
+    assert options["custom_domain"] is None
+
+
+def test_r2_media_urls_use_custom_domain_when_set(
+    monkeypatch: pytest.MonkeyPatch, reload_settings
+) -> None:
+    monkeypatch.setenv("R2_BUCKET_NAME", "test-bucket")
+    monkeypatch.setenv("R2_ENDPOINT_URL", "https://fake-account.r2.cloudflarestorage.com")
+    monkeypatch.setenv("R2_ACCESS_KEY_ID", "fake-access-key")
+    monkeypatch.setenv("R2_SECRET_ACCESS_KEY", "fake-secret-key")
+    monkeypatch.setenv("R2_CUSTOM_DOMAIN", "media.humanfossil.com")
+
+    from storages.backends.s3 import S3Storage
+
+    options = reload_settings().STORAGES["default"]["OPTIONS"]
+
+    assert S3Storage(**options).url("works/a.jpg") == "https://media.humanfossil.com/works/a.jpg"
+
+
+def test_csrf_trusted_origins_read_from_env(
+    monkeypatch: pytest.MonkeyPatch, reload_settings
+) -> None:
+    monkeypatch.setenv(
+        "CSRF_TRUSTED_ORIGINS", "https://humanfossil.com,https://www.humanfossil.com"
+    )
+
+    assert reload_settings().CSRF_TRUSTED_ORIGINS == [
+        "https://humanfossil.com",
+        "https://www.humanfossil.com",
+    ]
 
 
 def test_staticfiles_backend_stays_on_whitenoise_when_r2_configured(

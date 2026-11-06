@@ -62,6 +62,14 @@ cutover) — all four must be set together to activate R2:
 | `R2_ENDPOINT_URL`      | R2 S3-compatible endpoint, e.g. `https://<account_id>.r2.cloudflarestorage.com` |
 | `R2_ACCESS_KEY_ID`     | R2 API token access key                                                         |
 | `R2_SECRET_ACCESS_KEY` | R2 API token secret key                                                         |
+| `R2_CUSTOM_DOMAIN`     | Optional. Public bucket hostname, e.g. `media.humanfossil.com` (no scheme)      |
+
+Bind the custom domain to the bucket in Cloudflare (R2 → bucket → Settings →
+Custom Domains). Without `R2_CUSTOM_DOMAIN`, media URLs point at the
+authenticated S3 endpoint and won't load in browsers.
+
+Site domain: set `ALLOWED_HOSTS=humanfossil.com,www.humanfossil.com` and
+`CSRF_TRUSTED_ORIGINS=https://humanfossil.com,https://www.humanfossil.com`.
 
 Static files (Tailwind CSS output) are unaffected — they're always served
 via WhiteNoise from `STATIC_ROOT`, regardless of R2 configuration.

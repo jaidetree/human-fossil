@@ -24,6 +24,8 @@ DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1", "*"])
 
+CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -129,7 +131,12 @@ STORAGES: dict[str, dict[str, object]] = {
 #                           https://<account_id>.r2.cloudflarestorage.com
 #   R2_ACCESS_KEY_ID      — R2 API token access key
 #   R2_SECRET_ACCESS_KEY  — R2 API token secret key
-# All four must be set for R2 storage to activate; if any/all are absent,
+# Optional:
+#   R2_CUSTOM_DOMAIN      — public hostname bound to the bucket, e.g.
+#                           media.humanfossil.com (no scheme). Media URLs are
+#                           built from it; without it they'd point at the
+#                           authenticated S3 API endpoint and not load.
+# All four required vars must be set for R2 storage to activate; if any/all are absent,
 # Django falls back to FileSystemStorage under MEDIA_ROOT.
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
@@ -148,6 +155,7 @@ if R2_BUCKET_NAME:
             "region_name": "auto",
             # R2 doesn't support the ACL query param S3 uses by default.
             "default_acl": None,
+            "custom_domain": env("R2_CUSTOM_DOMAIN", default=None),
             "querystring_auth": False,
             "file_overwrite": False,
         },
