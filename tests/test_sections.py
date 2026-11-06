@@ -225,7 +225,7 @@ def test_admin_delete_removes_section(admin_client: Client) -> None:
 
 
 SEEDED = {
-    "hero": ("Human Fossil Project", "Original story, manga, and animation by Reb", ""),
+    "hero": ("Project Human Fossil", "Original story, manga, and animation by Reb", ""),
     "characters": ("Characters", "", ""),
     "animation": ("Animation", "Watch Trailer", "Watch now"),
     "manga": ("Manga", "", ""),
@@ -267,4 +267,4 @@ def test_home_page_sections_appear_in_specified_order(client: Client) -> None:
 @pytest.mark.django_db
 def test_home_has_sections_in_context(client: Client) -> None:
     context = client.get(reverse("home")).context
-    assert context["sections"]["hero"].title == "Human Fossil Project"
+    assert context["sections"]["hero"].title == "Project Human Fossil"

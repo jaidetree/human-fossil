@@ -12,7 +12,7 @@ HERO_CONTENT = (
 SECTIONS = [
     {
         "key": "hero",
-        "title": "Human Fossil Project",
+        "title": "Project Human Fossil",
         "subtitle": "Original story, manga, and animation by Reb",
         "content": HERO_CONTENT,
     },
