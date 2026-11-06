@@ -6,7 +6,9 @@
 {% block content %}
 	{% with hero=sections.hero %}
 		<section id="hero">
-			<h1>{{ hero.title }}</h1>
+			<h1 class="font-display text-[10rem] text-accent leading-snug">
+				{{ hero.title }}
+			</h1>
 			<p>{{ hero.subtitle }}</p>
 			{{ hero.content|markdownify }}
 		</section>
@@ -15,7 +17,10 @@
 	<section id="characters">
 		<h2>{{ sections.characters.title }}</h2>
 		{% for character in characters %}
-			<img src="{{ character.image.url }}" alt="{{ character.name }}" />
+			<figure>
+				<img src="{{ character.image.url }}" alt="{{ character.name }}" />
+				<figcaption>{{ character.description }}</figcaption>
+			</figure>
 		{% endfor %}
 	</section>
 
@@ -47,7 +52,9 @@
 		<section id="manga-callout">
 			{{ callout.content|markdownify }}
 			<a href="{{ callout.href }}">{{ callout.action }}</a>
-			{% if callout.price %}<span>${{ callout.price }}</span>{% endif %}
+			{% if callout.price %}
+				<span>${{ callout.price }}</span>
+			{% endif %}
 		</section>
 	{% endwith %}
 
@@ -62,7 +69,9 @@
 		<section id="art-book-callout">
 			{{ callout.content|markdownify }}
 			<a href="{{ callout.href }}">{{ callout.action }}</a>
-			{% if callout.price %}<span>${{ callout.price }}</span>{% endif %}
+			{% if callout.price %}
+				<span>${{ callout.price }}</span>
+			{% endif %}
 		</section>
 	{% endwith %}
 
@@ -101,5 +110,4 @@
 			</section>
 		</section>
 	{% endwith %}
-
 {% endblock %}

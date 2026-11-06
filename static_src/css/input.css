@@ -1,13 +1,22 @@
 /* See the Tailwind configuration guide for advanced usage
    https://tailwindcss.com/docs/configuration */
 
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Teko:wght@300..700&display=swap');
 @import 'tailwindcss';
-@source "./";
 @source "../../templates";
+@source not "../../.direnv";
 
 /* A Tailwind plugin that makes "hero-#{ICON}" classes available.
    The heroicons SVGs come from the "heroicons" npm package. */
 @plugin "../vendor/heroicons";
+
+@theme {
+	--default-font-family: 'IM Fell English', serif;
+	--font-display: 'Teko', sans-serif;
+
+	--color-surface: #212720;
+	--color-accent: #defb67;
+}
 
 :root {
 	color-scheme: dark;
@@ -16,51 +25,31 @@
 /* This file is for your main application CSS */
 
 @layer base {
-}
-
-@theme {
-	--default-font-family: 'Open Sans', sans-serif;
-	--font-display: 'Teko', serif;
+	body {
+		@apply bg-surface;
+	}
 }
 
 @utility font-body {
 	font-family: var(--default-font-family);
-	font-optical-sizing: auto;
 	font-weight: 400;
 	font-style: normal;
-	font-variation-settings: 'wdth' 100;
 }
-@utility font-base-thin {
+@utility font-body-italic {
 	font-family: var(--default-font-family);
-	font-optical-sizing: auto;
-	font-weight: 300;
-	font-style: normal;
-	font-variation-settings: 'wdth' 100;
-}
-@utility font-base-thick {
-	font-family: var(--default-font-family);
-	font-optical-sizing: auto;
-	font-weight: 500;
-	font-style: normal;
-	font-variation-settings: 'wdth' 100;
-}
-@utility font-base-thicker {
-	font-family: var(--default-font-family);
-	font-optical-sizing: auto;
-	font-weight: 650;
-	font-style: normal;
-	font-variation-settings: 'wdth' 100;
-}
-@utility font-base-thickest {
-	font-family: var(--default-font-family);
-	font-optical-sizing: auto;
-	font-weight: 800;
-	font-style: normal;
-	font-variation-settings: 'wdth' 100;
+	font-weight: 400;
+	font-style: italic;
 }
 @utility font-display {
 	font-family: var(--font-display);
+	font-optical-sizing: auto;
 	font-weight: 400;
+	font-style: normal;
+}
+@utility font-display-bold {
+	font-family: var(--font-display);
+	font-optical-sizing: auto;
+	font-weight: 600;
 	font-style: normal;
 }
 
