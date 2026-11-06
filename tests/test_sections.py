@@ -268,3 +268,12 @@ def test_home_page_sections_appear_in_specified_order(client: Client) -> None:
 def test_home_has_sections_in_context(client: Client) -> None:
     context = client.get(reverse("home")).context
     assert context["sections"]["hero"].title == "Project Human Fossil"
+
+
+@pytest.mark.django_db
+def test_markdownify_keeps_raw_html() -> None:
+    make_section(
+        "raw_html", content='<div class="x"><span>hi</span><br><h2>T</h2></div>'
+    )
+    html = render("{{ sections.raw_html.content|markdownify }}")
+    assert html == '<div class="x"><span>hi</span><br><h2>T</h2></div>'

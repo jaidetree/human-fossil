@@ -164,25 +164,13 @@ if R2_BUCKET_NAME:
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# django-markdownify — renders `human_fossil` app Markdown fields (Work.description,
-# WorkImage.caption, ...) via the `|markdownify` template filter. A restrictive
-# allowed-tags whitelist: enough for prose (paragraphs, emphasis, links, lists)
-# with no raw HTML/script/embed surface for owner-authored content.
+# django-markdownify — renders `human_fossil` app Markdown fields via the
+# `|markdownify` template filter. Sanitizing is off: raw HTML in content passes
+# through. Safe only because the sole editors are the developer and site owner
+# (trusted admin users). Re-enable BLEACH + a whitelist if untrusted users ever
+# get write access to any Markdown field.
 MARKDOWNIFY = {
     "default": {
-        "WHITELIST_TAGS": [
-            "a",
-            "b",
-            "blockquote",
-            "em",
-            "i",
-            "li",
-            "ol",
-            "p",
-            "strong",
-            "ul",
-        ],
-        "WHITELIST_ATTRS": ["href", "title"],
-        "WHITELIST_PROTOCOLS": ["http", "https", "mailto"],
+        "BLEACH": False,
     },
 }
