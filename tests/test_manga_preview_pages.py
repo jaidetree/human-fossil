@@ -27,6 +27,11 @@ def test_defaults_and_str() -> None:
     assert str(page) == "Page One"
 
 
+def test_verbose_names_are_title_cased() -> None:
+    assert MangaPreviewPage._meta.verbose_name == "Manga Preview Page"
+    assert MangaPreviewPage._meta.verbose_name_plural == "Manga Preview Pages"
+
+
 @pytest.mark.django_db
 def test_upload_path_uses_slugified_title_and_lowercase_ext() -> None:
     assert make_page(title="Page #1!").image.name == "manga_preview_pages/page-1.png"

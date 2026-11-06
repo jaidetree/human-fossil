@@ -85,6 +85,8 @@ class MangaPreviewPage(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
+        verbose_name = "Manga Preview Page"
+        verbose_name_plural = "Manga Preview Pages"
         ordering = ["order"]
 
     def __str__(self) -> str:
