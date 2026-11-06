@@ -23,8 +23,17 @@ def make_character(name="Ada", **kwargs) -> Character:
 def test_defaults_and_str() -> None:
     character = make_character()
     assert character.is_published is True
+    assert character.description == ""
+    assert character.age is None
     assert character.created_at and character.updated_at
     assert str(character) == "Ada"
+
+
+@pytest.mark.django_db
+def test_description_and_age_are_stored() -> None:
+    character = make_character(description="Digs things up.", age=34)
+    character.refresh_from_db()
+    assert (character.description, character.age) == ("Digs things up.", 34)
 
 
 @pytest.mark.django_db

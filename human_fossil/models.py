@@ -102,6 +102,8 @@ class MangaPreviewPage(models.Model):
 class Character(models.Model):
     name = models.CharField(max_length=255)
     image = models.ImageField(upload_to=character_upload_to)
+    description = models.TextField(blank=True)
+    age = models.PositiveSmallIntegerField(null=True, blank=True)
     is_published = models.BooleanField(default=True)
     order = models.PositiveIntegerField(default=0, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
