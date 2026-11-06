@@ -10,6 +10,12 @@ def event_photo_upload_to(instance: "EventPhoto", filename: str) -> str:
     return f"event_photos/{slugify(instance.title)}{ext}"
 
 
+def illustration_upload_to(instance: "Illustration", filename: str) -> str:
+    """Store as ``illustrations/<slugified title><ext>``."""
+    ext = os.path.splitext(filename)[1].lower()
+    return f"illustrations/{slugify(instance.title)}{ext}"
+
+
 class Event(models.Model):
     title = models.CharField(max_length=255)
     date = models.DateField()
@@ -44,6 +50,21 @@ class EventPhoto(models.Model):
         verbose_name = "Event Booth Photo"
         verbose_name_plural = "Event Booth Photos"
         ordering = ["-created_at"]
+
+    def __str__(self) -> str:
+        return self.title
+
+
+class Illustration(models.Model):
+    title = models.CharField(max_length=255)
+    image = models.ImageField(upload_to=illustration_upload_to)
+    is_published = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["order"]
 
     def __str__(self) -> str:
         return self.title

@@ -19,6 +19,15 @@
 		{% endfor %}
 	</section>
 
+	{% if illustrations %}
+		<section id="illustrations">
+			<h2>Illustrations</h2>
+			{% for illustration in illustrations %}
+				<img src="{{ illustration.image.url }}" alt="{{ illustration.title }}" />
+			{% endfor %}
+		</section>
+	{% endif %}
+
 	<section id="upcoming-events">
 		<h2>Upcoming Events</h2>
 		<ul>

@@ -1,6 +1,7 @@
 # Human Fossil
 
-One-page site showcasing events and the booth photos taken at them.
+One-page site showcasing events, the booth photos taken at them, and the
+owner's illustrations.
 
 ## Glossary
 
@@ -14,6 +15,11 @@ Photo of the booth, optionally linked to an Event. Model: `EventPhoto`.
 Featured in its own section, independent of Events. Survives deletion of its
 Event (the link is cleared). Hidden from the page when unpublished.
 
+**Illustration**
+Image created by the site owner, from the art book for the manga/animation.
+Has a title. Featured in its own section, independent of Events and Booth
+Photos. Shown in an admin-defined order. Hidden from the page when unpublished.
+
 **Published**
-`is_published` flag; only published Events / Event Booth Photos appear on the
+`is_published` flag; only published Events / Event Booth Photos / Illustrations appear on the
 page. Defaults to true.
