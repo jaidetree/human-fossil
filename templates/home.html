@@ -45,8 +45,12 @@
 					<li>
 						<img src="{{ award.icon.url }}" alt="{{ award.title }}" />
 						{{ award.title }} {{ award.year }}
-						{% if award.award %}<strong>{{ award.award }}</strong>{% endif %}
-						{% if award.category %}<span>{{ award.category }}</span>{% endif %}
+						{% if award.award %}
+							<strong>{{ award.award }}</strong>
+						{% endif %}
+						{% if award.category %}
+							<span>{{ award.category }}</span>
+						{% endif %}
 					</li>
 				{% endfor %}
 			</ul>
@@ -107,7 +111,12 @@
 				<h3>Upcoming Events</h3>
 				<ul>
 					{% for event in upcoming_events %}
-						<li>{{ event.title }} — {{ event.date }} — {{ event.location }}{% if event.booth_number %} — Booth {{ event.booth_number }}{% endif %}</li>
+						<li>
+							{{ event.title }} — {{ event.date }} — {{ event.location }}
+							{% if event.booth_number %}
+								— Booth {{ event.booth_number }}
+							{% endif %}
+						</li>
 					{% endfor %}
 				</ul>
 			</section>
@@ -116,10 +125,22 @@
 				<h3>Past Events</h3>
 				<ul>
 					{% for event in past_events %}
-						<li>{{ event.title }} — {{ event.date }} — {{ event.location }}{% if event.booth_number %} — Booth {{ event.booth_number }}{% endif %}</li>
+						<li>
+							{{ event.title }} — {{ event.date }} — {{ event.location }}
+							{% if event.booth_number %}
+								— Booth {{ event.booth_number }}
+							{% endif %}
+						</li>
 					{% endfor %}
 				</ul>
 			</section>
+		</section>
+	{% endwith %}
+
+	{% with creator=sections.creator %}
+		<section id="creator">
+			<h2>{{ creator.title }}</h2>
+			{{ creator.content|markdownify }}
 		</section>
 	{% endwith %}
 {% endblock %}
