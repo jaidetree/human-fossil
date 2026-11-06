@@ -32,3 +32,6 @@ postgres_data/
 
 # Obsidian local UI state at repo root
 /.obsidian/
+
+# Notes
+prompts.md
