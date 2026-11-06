@@ -220,6 +220,7 @@ class AnimationAward(models.Model):
     icon = models.FileField(
         upload_to=animation_award_upload_to,
         validators=[FileExtensionValidator(["png", "svg", "webp"])],
+        blank=True,
     )
     is_published = models.BooleanField(default=True)
     order = models.PositiveIntegerField(default=0, db_index=True)

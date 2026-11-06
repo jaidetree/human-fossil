@@ -62,6 +62,15 @@ def test_icon_rejects_other_extensions(filename: str) -> None:
 
 
 @pytest.mark.django_db
+def test_icon_is_optional() -> None:
+    award = AnimationAward(title="No Icon", year=2025)
+    award.full_clean()
+    award.save()
+    award.refresh_from_db()
+    assert not award.icon
+
+
+@pytest.mark.django_db
 def test_default_ordering_follows_order_field() -> None:
     second = make_award(title="B", order=2)
     first = make_award(title="A", order=1)
@@ -70,7 +79,7 @@ def test_default_ordering_follows_order_field() -> None:
 
 def test_admin_uses_renumbering_sortable_admin() -> None:
     assert isinstance(admin.site._registry[AnimationAward], RenumberingSortableAdmin)
-    assert AnimationAwardAdmin.list_display[0] == "title"
+    assert list(AnimationAwardAdmin.list_display)[0] == "title"
 
 
 @pytest.mark.django_db

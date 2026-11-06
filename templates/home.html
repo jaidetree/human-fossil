@@ -43,7 +43,9 @@
 			<ul id="animation-awards">
 				{% for award in animation_awards %}
 					<li>
-						<img src="{{ award.icon.url }}" alt="{{ award.title }}" />
+						{% if award.icon %}
+							<img src="{{ award.icon.url }}" alt="{{ award.title }}" />
+						{% endif %}
 						{{ award.title }} {{ award.year }}
 						{% if award.award %}
 							<strong>{{ award.award }}</strong>
