@@ -61,6 +61,7 @@ class Event(models.Model):
     title = models.CharField(max_length=255)
     date = models.DateField()
     location = models.CharField(max_length=255)
+    booth_number = models.CharField(max_length=50, blank=True)
     is_published = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

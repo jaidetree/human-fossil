@@ -68,9 +68,9 @@ class RenumberingSortableAdmin(SortableAdminMixin, admin.ModelAdmin):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ("title", "date", "location", "is_published")
+    list_display = ("title", "date", "location", "booth_number", "is_published")
     list_filter = ("is_published", "date")
-    search_fields = ("title", "location")
+    search_fields = ("title", "location", "booth_number")
 
 
 @admin.register(EventPhoto)

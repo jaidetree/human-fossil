@@ -59,6 +59,18 @@ def test_photo_caption_and_event_are_optional() -> None:
     assert photo.caption == "" and photo.event is None
 
 
+@pytest.mark.django_db
+def test_event_booth_number_is_optional_free_text() -> None:
+    plain = make_event()
+    plain.full_clean()
+    assert plain.booth_number == ""
+
+    prefixed = make_event(booth_number="AA-12b")
+    prefixed.full_clean()
+    prefixed.refresh_from_db()
+    assert prefixed.booth_number == "AA-12b"
+
+
 def test_verbose_names() -> None:
     assert EventPhoto._meta.verbose_name == "Event Booth Photo"
     assert EventPhoto._meta.verbose_name_plural == "Event Booth Photos"
