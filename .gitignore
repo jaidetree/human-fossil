@@ -27,10 +27,6 @@ postgres_data/
 .pgdata/
 .pgsocket/
 
-# Playwright
-/test-results/
-/playwright-report/
-
 # Obsidian workspace state (local UI state, not project content).
 .human-fossil-vault/.obsidian/workspace*
 
