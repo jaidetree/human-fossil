@@ -7,6 +7,13 @@
 		<h1>Human Fossil Project</h1>
 	</section>
 
+	<section id="illustrations">
+		<h2>Illustrations</h2>
+		{% for illustration in illustrations %}
+			<img src="{{ illustration.image.url }}" alt="{{ illustration.title }}" />
+		{% endfor %}
+	</section>
+
 	<section id="event-photos">
 		<h2>Event Booth Photos</h2>
 		{% for photo in event_photos %}
@@ -18,15 +25,6 @@
 			</figure>
 		{% endfor %}
 	</section>
-
-	{% if illustrations %}
-		<section id="illustrations">
-			<h2>Illustrations</h2>
-			{% for illustration in illustrations %}
-				<img src="{{ illustration.image.url }}" alt="{{ illustration.title }}" />
-			{% endfor %}
-		</section>
-	{% endif %}
 
 	<section id="upcoming-events">
 		<h2>Upcoming Events</h2>
