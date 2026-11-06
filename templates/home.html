@@ -42,9 +42,31 @@
 		{% with animation=sections.animation %}
 			<section id="animation">
 				<h2>{{ animation.title }}</h2>
-				<p>{{ animation.subtitle }}</p>
-				{{ animation.content|markdownify }}
-				<a href="{{ animation.href }}">{{ animation.action }}</a>
+				<p class="mb-8">{{ animation.subtitle }}</p>
+
+				<iframe
+					width="100%"
+					height="auto"
+					src="https://www.youtube.com/embed/4PYY9DYuo9o?si=gpGW7yVHk7bAkSVa"
+					title="YouTube video player"
+					frameborder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+					referrerpolicy="strict-origin-when-cross-origin"
+					allowfullscreen
+					class="aspect-video"
+				></iframe>
+
+				<div
+					class="rounded-4xl p-8 flex flex-col gap-8 lg:flex-row items-center bg-black/50 justify-between my-8"
+				>
+					<div class="prose">
+						{{ animation.content|markdownify }}
+					</div>
+					<a class="btn text-2xl" href="{{ animation.href }}"
+						>{{ animation.action }}</a
+					>
+				</div>
+
 				<ul id="animation-awards">
 					{% for award in animation_awards %}
 						<li>
