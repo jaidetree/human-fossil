@@ -85,3 +85,5 @@ deploy steps.
 Pushes to `main` auto-deploy via `.github/workflows/fly-deploy.yml` once CI
 passes. Requires the `FLY_API_TOKEN` GitHub repo secret
 (`fly tokens create deploy -x 999999h`).
+To deploy manually, run the "Fly Deploy" workflow from the GitHub Actions tab
+(deploys the selected ref; skips the CI gate).
