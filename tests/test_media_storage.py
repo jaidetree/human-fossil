@@ -97,6 +97,7 @@ def test_csrf_trusted_origins_read_from_env(
 def test_staticfiles_backend_stays_on_whitenoise_when_r2_configured(
     monkeypatch: pytest.MonkeyPatch, reload_settings
 ) -> None:
+    monkeypatch.setenv("DEBUG", "False")  # local .env may set DEBUG=True
     monkeypatch.setenv("R2_BUCKET_NAME", "test-bucket")
     monkeypatch.setenv("R2_ENDPOINT_URL", "https://fake-account.r2.cloudflarestorage.com")
     monkeypatch.setenv("R2_ACCESS_KEY_ID", "fake-access-key")
