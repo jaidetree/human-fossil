@@ -78,4 +78,8 @@ def test_admin_add_numbers_new_entries_to_the_end(admin_client: Client) -> None:
             reverse("admin:human_fossil_illustration_add"), {"title": title, "image": upload()}
         )
 
-    assert list(Illustration.objects.values_list("title", "order")) == [("a", 1), ("b", 2), ("c", 3)]
+    assert list(Illustration.objects.values_list("title", "order")) == [
+        ("a", 1),
+        ("b", 2),
+        ("c", 3),
+    ]
