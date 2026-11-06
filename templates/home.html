@@ -143,7 +143,9 @@
 	{% with creator=sections.creator %}
 		<section id="creator">
 			<h2>{{ creator.title }}</h2>
-			{{ creator.content|markdownify }}
+			<div class="prose">
+				{{ creator.content|markdownify }}
+			</div>
 		</section>
 	{% endwith %}
 {% endblock %}
