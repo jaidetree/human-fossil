@@ -1,0 +1,21 @@
+{
+  "excludePaths": [
+    "/.+\\.excalidraw\\.md$/",
+    "/.+\\.tldraw\\.md$/"
+  ],
+  "includePaths": [],
+  "isAdvancedRenameAndDeleteHandlerSuggestionDeclined": false,
+  "linkConversionMode": "OnEveryModification",
+  "linkPathStyleMode": "ObsidianSettingsDefault",
+  "linkStyleMode": "ObsidianSettingsDefault",
+  "proposedShouldHandleRenames": null,
+  "shouldAllowEmptyEmbedAlias": false,
+  "shouldAppendFileNameWhenDemotingEmbeds": false,
+  "shouldCreateMissingNotes": false,
+  "shouldIncludeAttachmentExtensionToEmbedAlias": true,
+  "shouldNormalizeFileLinks": true,
+  "shouldResolveLinksViaAliases": false,
+  "shouldUseAngleBrackets": true,
+  "shouldUseLeadingDotForRelativePaths": true,
+  "shouldUseLeadingSlashForAbsolutePaths": true
+}

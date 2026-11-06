@@ -4,36 +4,36 @@ How the engineering skills should consume this repo's domain documentation when 
 
 ## Before exploring, read these
 
-- **`CONTEXT.md`** at the repo root, or
-- **`CONTEXT-MAP.md`** at the repo root if it exists — it points at one `CONTEXT.md` per context. Read each one relevant to the topic.
+- **`.human-fossil-vault/Domain/CONTEXT.md`**, or
+- **`.human-fossil-vault/Domain/CONTEXT-MAP.md`** if it exists — it points at one `CONTEXT.md` per context. Read each one relevant to the topic.
 - **`.human-fossil-vault/ADRs/`** — read ADRs that touch the area you're about to work in.
 
 If any of these files don't exist, **proceed silently**. Don't flag their absence; don't suggest creating them upfront. The `/domain-modeling` skill (reached via `/grill-with-docs` and `/improve-codebase-architecture`) creates them lazily when terms or decisions actually get resolved.
 
 ## File structure
 
-Single-context repo (this repo — one Django project, no separate bounded contexts yet):
+Single-context repo (most repos):
 
 ```
 /
-├── CONTEXT.md
-├── .human-fossil-vault/ADRs/
-│   ├── 0001-....md
-│   └── 0002-....md
-└── human_fossil/
-```
-
-Multi-context repo (presence of `CONTEXT-MAP.md` at the root) — not currently the case here, but if it becomes so:
-
-```
-/
-├── CONTEXT-MAP.md
-├── .human-fossil-vault/ADRs/                        ← system-wide decisions
-└── lib/
-    ├── ordering/
+└── .human-fossil-vault/
+    ├── Domain/
     │   └── CONTEXT.md
-    └── billing/
-        └── CONTEXT.md
+    └── ADRs/
+        ├── 0001-event-sourced-orders.md
+        └── 0002-postgres-for-write-model.md
+```
+
+Multi-context repo (presence of `Domain/CONTEXT-MAP.md`):
+
+```
+/
+└── .human-fossil-vault/
+    ├── Domain/
+    │   ├── CONTEXT-MAP.md
+    │   ├── ordering/CONTEXT.md
+    │   └── billing/CONTEXT.md
+    └── ADRs/                          ← all decisions, one dir
 ```
 
 Even in the multi-context case, ADRs stay in the single `.human-fossil-vault/ADRs` dir — no per-context ADR directories. Use frontmatter or filename prefixes to scope an ADR to a context if needed.

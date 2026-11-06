@@ -6,7 +6,7 @@ vault_dir: .human-fossil-vault
 
 This repo has an [Obsidian project vault](https://github.com/jaidetree/obsidian-project-vault) at `.human-fossil-vault/`. It is the home for knowledge notes, reference material, ADRs, and (optionally) issues.
 
-**`vault_dir` above is the single source of truth for the vault's location.** Any skill that needs the vault reads it from here — never guess `.human-fossil-vault/`, and never hardcode the name.
+**`vault_dir` above is the single source of truth for the vault's location.** Any skill that needs the vault reads it from here — never guess `vault/`, and never hardcode the name.
 
 ## Layout
 
