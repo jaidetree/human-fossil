@@ -6,6 +6,13 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -17,10 +24,12 @@ jobs:
       DATABASE_URL: postgres://localhost:5433/human_fossil_test
       SECRET_KEY: ci-only-secret-key
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
+        with:
+          use-flakehub: false
 
       - name: uv sync
         run: nix develop -c uv sync
@@ -38,6 +47,12 @@ jobs:
         # runs at image build time.
         run: nix develop -c uv run python manage.py collectstatic --noinput
 
+      - name: Ruff format check
+        run: nix develop -c uv run ruff format --check .
+
+      - name: Ruff check
+        run: nix develop -c uv run ruff check .
+
       - name: Start local Postgres
         run: |
           mkdir -p "$PGHOST"
@@ -48,9 +63,3 @@ jobs:
 
       - name: mypy
         run: nix develop -c uv run mypy .
-
-      - name: Ruff format check
-        run: nix develop -c uv run ruff format --check .
-
-      - name: Ruff check
-        run: nix develop -c uv run ruff check .
