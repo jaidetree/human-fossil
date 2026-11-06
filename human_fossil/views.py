@@ -2,7 +2,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
 
-from .models import Character, Event, EventPhoto, Illustration, MangaPreviewPage
+from .models import Character, Event, EventPhoto, Illustration, Image, MangaPreviewPage
 
 
 def home(request: HttpRequest) -> HttpResponse:
@@ -18,5 +18,6 @@ def home(request: HttpRequest) -> HttpResponse:
             "event_photos": EventPhoto.objects.filter(is_published=True),
             "illustrations": Illustration.objects.filter(is_published=True),
             "manga_preview_pages": MangaPreviewPage.objects.filter(is_published=True),
+            "images": Image.objects.all(),
         },
     )

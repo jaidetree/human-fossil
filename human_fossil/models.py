@@ -1,6 +1,7 @@
 import os
 
 from django.db import models
+from django.utils.crypto import get_random_string
 from django.utils.text import slugify
 
 
@@ -26,6 +27,16 @@ def character_upload_to(instance: "Character", filename: str) -> str:
     """Store as ``characters/<slugified name><ext>``."""
     ext = os.path.splitext(filename)[1].lower()
     return f"characters/{slugify(instance.name)}{ext}"
+
+
+def image_upload_to(instance: "Image", filename: str) -> str:
+    """Store as ``images/<slugified title>-<random><ext>``.
+
+    The random suffix keeps URLs unguessable and unique per upload, since the
+    owner pastes them into text elsewhere.
+    """
+    ext = os.path.splitext(filename)[1].lower()
+    return f"images/{slugify(instance.title)}-{get_random_string(8)}{ext}"
 
 
 class Event(models.Model):
@@ -116,3 +127,20 @@ class Character(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class Image(models.Model):
+    """General-purpose upload; the title doubles as alt text."""
+
+    title = models.CharField(max_length=255)
+    image = models.ImageField(upload_to=image_upload_to)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Image"
+        verbose_name_plural = "Images"
+        ordering = ["-created_at"]
+
+    def __str__(self) -> str:
+        return self.title
