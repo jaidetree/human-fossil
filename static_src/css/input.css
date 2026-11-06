@@ -26,7 +26,32 @@
 
 @layer base {
 	body {
-		@apply bg-surface;
+		@apply bg-surface p-16;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply font-display my-4;
+	}
+
+	h1 {
+		@apply uppercase;
+	}
+
+	h2 {
+		@apply text-4xl;
+	}
+
+	h3 {
+		@apply text-2xl;
+	}
+
+	h4 {
+		@apply text-xl;
 	}
 }
 
@@ -54,4 +79,7 @@
 }
 
 @layer components {
+	.prose {
+		@apply max-w-2xl mb-8 text-lg leading-relaxed;
+	}
 }
