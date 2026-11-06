@@ -53,6 +53,14 @@
 	h4 {
 		@apply text-xl;
 	}
+
+	figcaption {
+		@apply text-sm leading-relaxed;
+	}
+
+	img + figcaption {
+		@apply mt-4;
+	}
 }
 
 @utility font-body {
@@ -81,5 +89,9 @@
 @layer components {
 	.prose {
 		@apply max-w-2xl mb-8 text-lg leading-relaxed;
+	}
+
+	.section {
+		@apply max-w-2xl;
 	}
 }

@@ -19,12 +19,19 @@
 
 	<section id="characters">
 		<h2>{{ sections.characters.title }}</h2>
-		{% for character in characters %}
-			<figure>
-				<img src="{{ character.image.url }}" alt="{{ character.name }}" />
-				<figcaption>{{ character.description }}</figcaption>
-			</figure>
-		{% endfor %}
+
+		<div class="grid grid-cols-4 gap-8">
+			{% for character in characters %}
+				<figure>
+					<img
+						src="{{ character.image.url }}"
+						alt="{{ character.name }}"
+						class="w-full"
+					/>
+					<figcaption>{{ character.description }}</figcaption>
+				</figure>
+			{% endfor %}
+		</div>
 	</section>
 
 	{% with animation=sections.animation %}
