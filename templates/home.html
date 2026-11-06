@@ -70,35 +70,36 @@
 		<section id="events">
 			<h2>{{ events.title }}</h2>
 			{{ events.content|markdownify }}
+
+			<section id="event-photos">
+				{% for photo in event_photos %}
+					<figure>
+						<img src="{{ photo.image.url }}" alt="{{ photo.title }}" />
+						{% if photo.caption %}
+							<figcaption>{{ photo.caption }}</figcaption>
+						{% endif %}
+					</figure>
+				{% endfor %}
+			</section>
+
+			<section id="upcoming-events">
+				<h2>Upcoming Events</h2>
+				<ul>
+					{% for event in upcoming_events %}
+						<li>{{ event.title }} — {{ event.date }} — {{ event.location }}</li>
+					{% endfor %}
+				</ul>
+			</section>
+
+			<section id="past-events">
+				<h2>Past Events</h2>
+				<ul>
+					{% for event in past_events %}
+						<li>{{ event.title }} — {{ event.date }} — {{ event.location }}</li>
+					{% endfor %}
+				</ul>
+			</section>
 		</section>
 	{% endwith %}
 
-	<section id="event-photos">
-		{% for photo in event_photos %}
-			<figure>
-				<img src="{{ photo.image.url }}" alt="{{ photo.title }}" />
-				{% if photo.caption %}
-					<figcaption>{{ photo.caption }}</figcaption>
-				{% endif %}
-			</figure>
-		{% endfor %}
-	</section>
-
-	<section id="upcoming-events">
-		<h2>Upcoming Events</h2>
-		<ul>
-			{% for event in upcoming_events %}
-				<li>{{ event.title }} — {{ event.date }} — {{ event.location }}</li>
-			{% endfor %}
-		</ul>
-	</section>
-
-	<section id="past-events">
-		<h2>Past Events</h2>
-		<ul>
-			{% for event in past_events %}
-				<li>{{ event.title }} — {{ event.date }} — {{ event.location }}</li>
-			{% endfor %}
-		</ul>
-	</section>
 {% endblock %}
