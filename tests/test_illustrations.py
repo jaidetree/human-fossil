@@ -3,16 +3,15 @@
 import io
 
 import pytest
-from PIL import Image
 from django.contrib import admin
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client
 from django.urls import reverse
+from PIL import Image
+from test_events import PNG
 
 from human_fossil.admin import IllustrationAdmin, RenumberingSortableAdmin
 from human_fossil.models import Illustration
-
-from test_events import PNG
 
 
 def make_illustration(title="Cover Art", **kwargs) -> Illustration:
