@@ -16,6 +16,12 @@ def illustration_upload_to(instance: "Illustration", filename: str) -> str:
     return f"illustrations/{slugify(instance.title)}{ext}"
 
 
+def manga_preview_page_upload_to(instance: "MangaPreviewPage", filename: str) -> str:
+    """Store as ``manga_preview_pages/<slugified title><ext>``."""
+    ext = os.path.splitext(filename)[1].lower()
+    return f"manga_preview_pages/{slugify(instance.title)}{ext}"
+
+
 class Event(models.Model):
     title = models.CharField(max_length=255)
     date = models.DateField()
@@ -58,6 +64,21 @@ class EventPhoto(models.Model):
 class Illustration(models.Model):
     title = models.CharField(max_length=255)
     image = models.ImageField(upload_to=illustration_upload_to)
+    is_published = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["order"]
+
+    def __str__(self) -> str:
+        return self.title
+
+
+class MangaPreviewPage(models.Model):
+    title = models.CharField(max_length=255)
+    image = models.ImageField(upload_to=manga_preview_page_upload_to)
     is_published = models.BooleanField(default=True)
     order = models.PositiveIntegerField(default=0, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)

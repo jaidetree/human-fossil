@@ -1,7 +1,7 @@
 # Human Fossil
 
-One-page site showcasing events, the booth photos taken at them, and the
-owner's illustrations.
+One-page site showcasing events, the booth photos taken at them, the
+owner's illustrations, and a few manga preview pages.
 
 ## Glossary
 
@@ -20,6 +20,12 @@ Image created by the site owner, from the art book for the manga/animation.
 Has a title. Featured in its own section, independent of Events and Booth
 Photos. Shown in an admin-defined order. Hidden from the page when unpublished.
 
+**Manga Preview Page**
+Page from the digital manga, uploaded as a teaser to drive purchases. Model:
+`MangaPreviewPage`. Has a title (used as alt text). Featured in its own
+section above Illustrations. Usually a few; no enforced cap. Shown in an
+admin-defined order. Hidden from the page when unpublished.
+
 **Published**
-`is_published` flag; only published Events / Event Booth Photos / Illustrations appear on the
+`is_published` flag; only published Events / Event Booth Photos / Illustrations / Manga Preview Pages appear on the
 page. Defaults to true.

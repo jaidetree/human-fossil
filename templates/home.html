@@ -7,6 +7,13 @@
 		<h1>Human Fossil Project</h1>
 	</section>
 
+	<section id="manga">
+		<h2>Manga</h2>
+		{% for page in manga_preview_pages %}
+			<img src="{{ page.image.url }}" alt="{{ page.title }}" />
+		{% endfor %}
+	</section>
+
 	<section id="illustrations">
 		<h2>Illustrations</h2>
 		{% for illustration in illustrations %}
