@@ -26,7 +26,7 @@
 
 @layer base {
 	body {
-		@apply bg-surface p-16;
+		@apply bg-surface p-4 lg:p-16;
 	}
 
 	h1,
@@ -88,7 +88,7 @@
 
 @layer components {
 	.prose {
-		@apply max-w-2xl leading-relaxed;
+		@apply lg:max-w-2xl leading-relaxed;
 	}
 
 	.prose * + p {

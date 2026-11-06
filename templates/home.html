@@ -7,10 +7,12 @@
 	<div class="flex flex-col gap-8 max-w-6xl m-auto">
 		{% with hero=sections.hero %}
 			<section id="hero">
-				<h1 class="font-display text-[10rem] text-accent leading-[0.8] -ml-2">
+				<h1
+					class="font-display text-[8rem] lg:text-[10rem] text-accent leading-[0.8] -ml-2"
+				>
 					{{ hero.title }}
 				</h1>
-				<p class="relative -mt-6 mb-8">{{ hero.subtitle }}</p>
+				<p class="relative -mt-6 mb-8 text-2xl">{{ hero.subtitle }}</p>
 
 				<div class="prose text-lg">
 					{{ hero.content|markdownify }}
@@ -21,7 +23,7 @@
 		<section id="characters">
 			<h2>{{ sections.characters.title }}</h2>
 
-			<div class="grid grid-cols-4 gap-8">
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
 				{% for character in characters %}
 					<figure>
 						<img
@@ -65,7 +67,7 @@
 		<section id="manga">
 			<h2>{{ sections.manga.title }}</h2>
 
-			<div class="grid grid-cols-3 gap-8">
+			<div class="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
 				{% for page in manga_preview_pages %}
 					<img src="{{ page.image.url }}" alt="{{ page.title }}" />
 				{% endfor %}
@@ -75,7 +77,7 @@
 		{% with callout=sections.manga_callout %}
 			<section id="manga-callout" class="rounded-2xl">
 				<div
-					class="p-8 flex flex-row w-full items-center justify-between backdrop-blur-xs rounded-2xl"
+					class="p-8 flex flex-col lg:flex-row gap-8 w-full items-center justify-between backdrop-blur-xs rounded-2xl"
 				>
 					<div class="prose text-2xl">
 						{{ callout.content|markdownify }}
@@ -97,7 +99,7 @@
 		<section id="illustrations">
 			<h2>{{ sections.illustrations.title }}</h2>
 
-			<div class="grid grid-cols-3 gap-8">
+			<div class="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
 				{% for illustration in illustrations %}
 					<img
 						src="{{ illustration.image.url }}"
@@ -111,7 +113,7 @@
 		{% with callout=sections.art_book_callout %}
 			<section id="art-book-callout" class="rounded-2xl">
 				<div
-					class="p-8 flex flex-row w-full items-center justify-between rounded-2xl"
+					class="p-8 flex flex-col gap-8 lg:flex-row w-full items-center justify-between rounded-2xl"
 				>
 					<div class="prose text-2xl">
 						{{ callout.content|markdownify }}
