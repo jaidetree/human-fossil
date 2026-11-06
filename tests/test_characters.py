@@ -111,4 +111,3 @@ def test_home_lists_only_published_characters_in_order(client: Client) -> None:
 def test_home_renders_characters_section_above_manga_even_when_empty(client: Client) -> None:
     html = client.get(reverse("home")).content.decode()
     assert 0 < html.index('id="characters"') < html.index('id="manga"')
-
