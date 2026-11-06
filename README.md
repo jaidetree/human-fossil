@@ -44,7 +44,10 @@ uv run ruff format --check .
 uv run ruff check .
 ```
 
-### Pre-push hook
+### Git hooks
+
+`.githooks/pre-commit` runs `ruff format` and `ruff check --fix` on staged
+Python files and re-stages them. It aborts if a file is only partially staged.
 
 `.githooks/pre-push` runs the same checks as CI (ruff format/check, pytest,
 mypy) and blocks the push on failure. Needs local Postgres running. Enable
@@ -54,7 +57,7 @@ once per clone:
 git config core.hooksPath .githooks
 ```
 
-Bypass in a pinch with `git push --no-verify`.
+Bypass in a pinch with `--no-verify` on `git commit` / `git push`.
 
 ## Media storage
 

@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Auto-format and lint-fix staged Python files, then re-stage them.
+# Refuses to run on partially staged files (re-staging would pull in
+# unstaged hunks). Bypass: --no-verify.
+
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+
+staged=()
+while IFS= read -r -d '' f; do staged+=("$f"); done \
+    < <(git diff --cached --name-only --diff-filter=ACM -z -- '*.py')
+[ ${#staged[@]} -eq 0 ] && exit 0
+
+partial=$(git diff --name-only -z -- "${staged[@]}" | tr '\0' '\n')
+if [ -n "$partial" ]; then
+    echo "pre-commit: partially staged Python files, stage or stash fully:" >&2
+    echo "$partial" >&2
+    exit 1
+fi
+
+run() {
+    echo "pre-commit: $*"
+    "$@"
+}
+
+run uv run ruff format "${staged[@]}"
+run uv run ruff check --fix "${staged[@]}"
+git add -- "${staged[@]}"
