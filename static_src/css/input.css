@@ -43,15 +43,15 @@
 	}
 
 	h2 {
-		@apply text-4xl;
+		@apply text-8xl;
 	}
 
 	h3 {
-		@apply text-2xl;
+		@apply text-6xl;
 	}
 
 	h4 {
-		@apply text-xl;
+		@apply text-4xl;
 	}
 
 	figcaption {
@@ -88,10 +88,44 @@
 
 @layer components {
 	.prose {
-		@apply max-w-2xl mb-8 text-lg leading-relaxed;
+		@apply max-w-2xl leading-relaxed;
+	}
+
+	.prose * + p {
+		@apply mt-4;
 	}
 
 	.section {
 		@apply max-w-2xl;
+	}
+
+	.btn {
+		@apply bg-accent text-surface px-4 py-2 rounded-xl;
+	}
+
+	#manga-callout {
+		background:
+			linear-gradient(
+				to right,
+				color-mix(in oklab, var(--color-black) 75%, transparent 25%) 60%,
+				color-mix(in oklab, var(--color-black) 100%, transparent 0%) 100%
+			),
+			url(/static/images/human-fossil-manga-cover.jpg) 140% 40% / 120% no-repeat,
+			color-mix(in oklab, var(--color-black) 60%, transparent 40%);
+	}
+
+	#art-book-callout {
+		background:
+			linear-gradient(
+				to right,
+				color-mix(in oklab, var(--color-black) 60%, transparent 40%) 60%,
+				color-mix(in oklab, var(--color-black) 100%, transparent 0%) 100%
+			),
+			url(/static/images/human-fossil-artbook.jpg) 0% 30% / 90% no-repeat,
+			color-mix(in oklab, var(--color-black) 70%, transparent 30%);
+	}
+
+	#art-book-callout > div {
+		backdrop-filter: blur(2px);
 	}
 }

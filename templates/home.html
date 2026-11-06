@@ -4,162 +4,192 @@
 	Project Human Fossil
 {% endblock title %}
 {% block content %}
-	{% with hero=sections.hero %}
-		<section id="hero">
-			<h1 class="font-display text-[10rem] text-accent leading-[0.8] -ml-2">
-				{{ hero.title }}
-			</h1>
-			<p class="relative -mt-6 mb-8">{{ hero.subtitle }}</p>
+	<div class="flex flex-col gap-8 max-w-6xl m-auto">
+		{% with hero=sections.hero %}
+			<section id="hero">
+				<h1 class="font-display text-[10rem] text-accent leading-[0.8] -ml-2">
+					{{ hero.title }}
+				</h1>
+				<p class="relative -mt-6 mb-8">{{ hero.subtitle }}</p>
 
-			<div class="prose">
-				{{ hero.content|markdownify }}
-			</div>
-		</section>
-	{% endwith %}
+				<div class="prose text-lg">
+					{{ hero.content|markdownify }}
+				</div>
+			</section>
+		{% endwith %}
 
-	<section id="characters">
-		<h2>{{ sections.characters.title }}</h2>
+		<section id="characters">
+			<h2>{{ sections.characters.title }}</h2>
 
-		<div class="grid grid-cols-4 gap-8">
-			{% for character in characters %}
-				<figure>
-					<img
-						src="{{ character.image.url }}"
-						alt="{{ character.name }}"
-						class="w-full"
-					/>
-					<figcaption>{{ character.description }}</figcaption>
-				</figure>
-			{% endfor %}
-		</div>
-	</section>
-
-	{% with animation=sections.animation %}
-		<section id="animation">
-			<h2>{{ animation.title }}</h2>
-			<p>{{ animation.subtitle }}</p>
-			{{ animation.content|markdownify }}
-			<a href="{{ animation.href }}">{{ animation.action }}</a>
-			<ul id="animation-awards">
-				{% for award in animation_awards %}
-					<li>
-						{% if award.icon %}
-							<img src="{{ award.icon.url }}" alt="{{ award.title }}" />
-						{% endif %}
-						{{ award.title }} {{ award.year }}
-						{% if award.award %}
-							<strong>{{ award.award }}</strong>
-						{% endif %}
-						{% if award.category %}
-							<span>{{ award.category }}</span>
-						{% endif %}
-					</li>
-				{% endfor %}
-			</ul>
-		</section>
-	{% endwith %}
-
-	<section id="manga">
-		<h2>{{ sections.manga.title }}</h2>
-
-		<div class="grid grid-cols-3 gap-8">
-			{% for page in manga_preview_pages %}
-				<img src="{{ page.image.url }}" alt="{{ page.title }}" />
-			{% endfor %}
-		</div>
-	</section>
-
-	{% with callout=sections.manga_callout %}
-		<section
-			id="manga-callout"
-			class="p-8 bg-accent/70 rounded-xl flex flex-row"
-		>
-			{{ callout.content|markdownify }}
-			<div>
-				<a href="{{ callout.href }}" class="btn">{{ callout.action }}</a>
-				{% if callout.price %}
-					<span>${{ callout.price }}</span>
-				{% endif %}
-			</div>
-		</section>
-	{% endwith %}
-
-	<section id="illustrations">
-		<h2>{{ sections.illustrations.title }}</h2>
-
-		<div class="grid grid-cols-3 gap-8">
-			{% for illustration in illustrations %}
-				<img
-					src="{{ illustration.image.url }}"
-					alt="{{ illustration.title }}"
-					class="object-cover w-fill aspect-square"
-				/>
-			{% endfor %}
-		</div>
-	</section>
-
-	{% with callout=sections.art_book_callout %}
-		<section id="art-book-callout">
-			{{ callout.content|markdownify }}
-			<a href="{{ callout.href }}">{{ callout.action }}</a>
-			{% if callout.price %}
-				<span>${{ callout.price }}</span>
-			{% endif %}
-		</section>
-	{% endwith %}
-
-	{% with events=sections.events %}
-		<section id="events">
-			<h2>{{ events.title }}</h2>
-			{{ events.content|markdownify }}
-
-			<section id="event-photos" class="grid grid-cols-2 gap-8">
-				{% for photo in event_photos %}
+			<div class="grid grid-cols-4 gap-8">
+				{% for character in characters %}
 					<figure>
-						<img src="{{ photo.image.url }}" alt="{{ photo.title }}" />
-						{% if photo.caption %}
-							<figcaption>{{ photo.caption }}</figcaption>
-						{% endif %}
+						<img
+							src="{{ character.image.url }}"
+							alt="{{ character.name }}"
+							class="w-full aspect-[0.75] object-cover"
+						/>
+						<figcaption class="prose text-sm">
+							{{ character.description }}
+						</figcaption>
 					</figure>
 				{% endfor %}
-			</section>
-
-			<section id="upcoming-events">
-				<h3>Upcoming Events</h3>
-				<ul>
-					{% for event in upcoming_events %}
-						<li>
-							{{ event.title }} — {{ event.date }} — {{ event.location }}
-							{% if event.booth_number %}
-								— Booth {{ event.booth_number }}
-							{% endif %}
-						</li>
-					{% endfor %}
-				</ul>
-			</section>
-
-			<section id="past-events">
-				<h3>Past Events</h3>
-				<ul>
-					{% for event in past_events %}
-						<li>
-							{{ event.title }} — {{ event.date }} — {{ event.location }}
-							{% if event.booth_number %}
-								— Booth {{ event.booth_number }}
-							{% endif %}
-						</li>
-					{% endfor %}
-				</ul>
-			</section>
-		</section>
-	{% endwith %}
-
-	{% with creator=sections.creator %}
-		<section id="creator">
-			<h2>{{ creator.title }}</h2>
-			<div class="prose">
-				{{ creator.content|markdownify }}
 			</div>
 		</section>
-	{% endwith %}
+
+		{% with animation=sections.animation %}
+			<section id="animation">
+				<h2>{{ animation.title }}</h2>
+				<p>{{ animation.subtitle }}</p>
+				{{ animation.content|markdownify }}
+				<a href="{{ animation.href }}">{{ animation.action }}</a>
+				<ul id="animation-awards">
+					{% for award in animation_awards %}
+						<li>
+							{% if award.icon %}
+								<img src="{{ award.icon.url }}" alt="{{ award.title }}" />
+							{% endif %}
+							{{ award.title }} {{ award.year }}
+							{% if award.award %}
+								<strong>{{ award.award }}</strong>
+							{% endif %}
+							{% if award.category %}
+								<span>{{ award.category }}</span>
+							{% endif %}
+						</li>
+					{% endfor %}
+				</ul>
+			</section>
+		{% endwith %}
+
+		<section id="manga">
+			<h2>{{ sections.manga.title }}</h2>
+
+			<div class="grid grid-cols-3 gap-8">
+				{% for page in manga_preview_pages %}
+					<img src="{{ page.image.url }}" alt="{{ page.title }}" />
+				{% endfor %}
+			</div>
+		</section>
+
+		{% with callout=sections.manga_callout %}
+			<section id="manga-callout" class="rounded-2xl">
+				<div
+					class="p-8 flex flex-row w-full items-center justify-between backdrop-blur-xs rounded-2xl"
+				>
+					<div class="prose text-2xl">
+						{{ callout.content|markdownify }}
+					</div>
+					<div class="flex flex-col gap-2 items-center">
+						{% if callout.price %}
+							<span class="text-4xl font-display text-white/90"
+								>${{ callout.price }}</span
+							>
+						{% endif %}
+						<a href="{{ callout.href }}" class="btn text-2xl font-bold"
+							>{{ callout.action }}</a
+						>
+					</div>
+				</div>
+			</section>
+		{% endwith %}
+
+		<section id="illustrations">
+			<h2>{{ sections.illustrations.title }}</h2>
+
+			<div class="grid grid-cols-3 gap-8">
+				{% for illustration in illustrations %}
+					<img
+						src="{{ illustration.image.url }}"
+						alt="{{ illustration.title }}"
+						class="object-cover w-fill aspect-square"
+					/>
+				{% endfor %}
+			</div>
+		</section>
+
+		{% with callout=sections.art_book_callout %}
+			<section id="art-book-callout" class="rounded-2xl">
+				<div
+					class="p-8 flex flex-row w-full items-center justify-between rounded-2xl"
+				>
+					<div class="prose text-2xl">
+						{{ callout.content|markdownify }}
+					</div>
+					<div class="flex flex-col gap-2 items-center">
+						{% if callout.price %}
+							<span class="text-4xl font-display text-white/90"
+								>${{ callout.price }}</span
+							>
+						{% endif %}
+						<a href="{{ callout.href }}" class="btn text-2xl font-bold"
+							>{{ callout.action }}</a
+						>
+					</div>
+				</div>
+			</section>
+		{% endwith %}
+
+		{% with events=sections.events %}
+			<section id="events">
+				<h2>{{ events.title }}</h2>
+
+				<div class="prose text-lg mb-8">
+					{{ events.content|markdownify }}
+				</div>
+
+				<section id="event-photos" class="grid grid-cols-2 gap-8">
+					{% for photo in event_photos %}
+						<figure>
+							<img
+								src="{{ photo.image.url }}"
+								alt="{{ photo.title }}"
+								class="object-cover aspect-[0.55]"
+							/>
+							{% if photo.caption %}
+								<figcaption>{{ photo.caption }}</figcaption>
+							{% endif %}
+						</figure>
+					{% endfor %}
+				</section>
+
+				<section id="upcoming-events">
+					<h3>Upcoming Events</h3>
+					<ul>
+						{% for event in upcoming_events %}
+							<li>
+								{{ event.title }} — {{ event.date }} — {{ event.location }}
+								{% if event.booth_number %}
+									— Booth {{ event.booth_number }}
+								{% endif %}
+							</li>
+						{% endfor %}
+					</ul>
+				</section>
+
+				<section id="past-events">
+					<h3>Past Events</h3>
+					<ul>
+						{% for event in past_events %}
+							<li>
+								{{ event.title }} — {{ event.date }} — {{ event.location }}
+								{% if event.booth_number %}
+									— Booth {{ event.booth_number }}
+								{% endif %}
+							</li>
+						{% endfor %}
+					</ul>
+				</section>
+			</section>
+		{% endwith %}
+
+		{% with creator=sections.creator %}
+			<section id="creator">
+				<h2>{{ creator.title }}</h2>
+				<div class="prose text-lg">
+					{{ creator.content|markdownify }}
+				</div>
+			</section>
+		{% endwith %}
+	</div>
 {% endblock %}
