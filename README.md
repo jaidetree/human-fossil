@@ -56,12 +56,12 @@ project locally.
 Set these as Fly secrets for production (see ticket 18, production
 cutover) — all four must be set together to activate R2:
 
-| Env var                 | Value                                                     |
-| ------------------------ | ---------------------------------------------------------- |
-| `R2_BUCKET_NAME`         | R2 bucket name                                            |
-| `R2_ENDPOINT_URL`        | R2 S3-compatible endpoint, e.g. `https://<account_id>.r2.cloudflarestorage.com` |
-| `R2_ACCESS_KEY_ID`       | R2 API token access key                                   |
-| `R2_SECRET_ACCESS_KEY`   | R2 API token secret key                                   |
+| Env var                | Value                                                                           |
+| ---------------------- | ------------------------------------------------------------------------------- |
+| `R2_BUCKET_NAME`       | R2 bucket name                                                                  |
+| `R2_ENDPOINT_URL`      | R2 S3-compatible endpoint, e.g. `https://<account_id>.r2.cloudflarestorage.com` |
+| `R2_ACCESS_KEY_ID`     | R2 API token access key                                                         |
+| `R2_SECRET_ACCESS_KEY` | R2 API token secret key                                                         |
 
 Static files (Tailwind CSS output) are unaffected — they're always served
 via WhiteNoise from `STATIC_ROOT`, regardless of R2 configuration.
