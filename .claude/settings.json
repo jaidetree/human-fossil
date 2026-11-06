@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(.envrc)",
+      "Read(.envrc.*)",
+      "Edit(.envrc)",
+      "Edit(.envrc.*)",
+      "Read(secrets/**)",
+      "Edit(secrets/**)",
+      "Read(*.pem)",
+      "Read(*.key)",
+      "Edit(*.pem)",
+      "Edit(*.key)",
+      "Read(serviceAccountKey.json)",
+      "Edit(credentials/**)"
+    ]
+  }
+}
