@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 
+echo "Fetching production db..."
+pg_dump "$PROD_DATABASE_URL" -Fc --no-owner --no-acl -f production.dump
 
-exec pg_dump "$PROD_DATABASE_URL" -Fc --no-owner --no-acl -f production.dump
-
+echo "Dropping old local db..."
 dropdb --if-exists human_fossil_dev
+
+echo "Creating new empty db..."
 createdb human_fossil_dev
 
-exec pg_restore "$LOCAL_DATABASE_URL" --no-owner --no-acl -d human_fossil_dev production.dump
-exec uv run manage.py migrate 
+echo "Importing production dump into local db..."
+pg_restore --no-owner --no-acl -d human_fossil_dev production.dump
+
+echo "Running migrations..."
+uv run manage.py migrate
