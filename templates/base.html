@@ -1,0 +1,70 @@
+{% load static %}
+<!doctype html>
+<html lang="en" data-theme="dark">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>
+			{% block title %}
+				Human Fossil
+			{% endblock %}
+		</title>
+		<link rel="stylesheet" href="{% static 'css/app.css' %}" />
+	</head>
+	<body class="bg-base-100 text-base-content min-h-screen flex flex-col">
+		<header class="site-header {% block header_class %}compact{% endblock %}">
+			<div class="container navbar">
+				<div class="flex-1">
+					<a
+						href="{% url 'home' %}"
+						class="flex-1 flex w-fit items-center gap-2 text-2xl text-white/75 hover:text-white transition-colors duration-300"
+					>
+						<span class="font-logo">Human Fossil</span>
+					</a>
+				</div>
+				<div class="flex-none">
+					<ul
+						class="flex flex-row space-x-8 items-center uppercase text-base text-white/75"
+					>
+						<li>
+							<a
+								href="{% url 'home' %}"
+								class="hover:text-white transition-colors duration-300"
+								>Home</a
+							>
+						</li>
+						<li>
+							<a
+								href="{% url 'human_fossil:work_list' %}"
+								class="hover:text-white transition-colors duration-300"
+								>Work</a
+							>
+						</li>
+						<li>
+							<a
+								href="{% url 'training' %}"
+								class="hover:text-white transition-colors duration-300"
+								>Training</a
+							>
+						</li>
+						<li>
+							<a
+								href="{% url 'contact' %}"
+								class="hover:text-white transition-colors duration-300"
+								>Contact</a
+							>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+		<main class="grow flex flex-col">
+			{% block content %}{% endblock %}
+		</main>
+		<footer class="bg-black py-4 text-xs">
+			<div class="container">
+				&copy; Copyright 2026 by Human Fossil
+			</div>
+		</footer>
+	</body>
+</html>

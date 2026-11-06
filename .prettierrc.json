@@ -1,0 +1,14 @@
+{
+  "plugins": ["prettier-plugin-django-templates"],
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "parser": "django-html"
+      }
+    }
+  ]
+}

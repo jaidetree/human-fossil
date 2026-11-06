@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# uv
+/uv.lock.tmp
+
+# Django
+/staticfiles/
+/media/
+*.log
+.env
+
+# Tailwind build output (source lives in static_src/, this is generated)
+/static/css/app.css
+
+# Node
+npm-debug.log
+node_modules/
+
+# Local Postgres data (scripts/db)
+postgres_data/
+.pgdata/
+.pgsocket/
+
+# Playwright
+/test-results/
+/playwright-report/
+
+# Obsidian workspace state (local UI state, not project content).
+.human-fossil-vault/.obsidian/workspace*
+
+# Obsidian local UI state at repo root
+/.obsidian/

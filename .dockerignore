@@ -1,0 +1,17 @@
+.git/
+.venv/
+node_modules/
+__pycache__/
+*.pyc
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+staticfiles/
+.pgdata/
+.pgsocket/
+postgres_data/
+.human-fossil-vault/
+.claude/
+tests/
+test-results/
+playwright-report/
