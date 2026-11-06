@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      PGDATA: ${{ github.workspace }}/.pgdata
+      PGHOST: ${{ github.workspace }}/.pgsocket
+      PGDATABASE: human_fossil_test
+      PGPORT: '5433'
+      DATABASE_URL: postgres://localhost:5433/human_fossil_test
+      SECRET_KEY: ci-only-secret-key
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: uv sync
+        run: nix develop -c uv sync
+
+      - name: npm install
+        run: nix develop -c npm ci
+
+      - name: Build Tailwind CSS
+        run: nix develop -c npm run build:css
+
+      - name: Collect static files
+        # WhiteNoise's CompressedManifestStaticFilesStorage (STORAGES["staticfiles"])
+        # needs its manifest built before any test that renders a template with a
+        # {% static %} tag (e.g. Django admin pages) — same step the Dockerfile
+        # runs at image build time.
+        run: nix develop -c uv run python manage.py collectstatic --noinput
+
+      - name: Start local Postgres
+        run: |
+          mkdir -p "$PGHOST"
+          nix develop -c ./scripts/db start
+
+      - name: Run tests
+        run: nix develop -c uv run pytest
+
+      - name: mypy
+        run: nix develop -c uv run mypy .
+
+      - name: Ruff format check
+        run: nix develop -c uv run ruff format --check .
+
+      - name: Ruff check
+        run: nix develop -c uv run ruff check .
