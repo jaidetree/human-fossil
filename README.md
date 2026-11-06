@@ -44,6 +44,18 @@ uv run ruff format --check .
 uv run ruff check .
 ```
 
+### Pre-push hook
+
+`.githooks/pre-push` runs the same checks as CI (ruff format/check, pytest,
+mypy) and blocks the push on failure. Needs local Postgres running. Enable
+once per clone:
+
+```sh
+git config core.hooksPath .githooks
+```
+
+Bypass in a pinch with `git push --no-verify`.
+
 ## Media storage
 
 CMS media (`WorkImage.image`, `Training.image`, `Resource.icon`,

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Run the same checks as .github/workflows/ci.yml before a push so CI
+# failures surface locally. Needs local Postgres up (./scripts/db start)
+# and DATABASE_URL set, as for plain `uv run pytest`. Bypass: --no-verify.
+
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+
+run() {
+    echo "pre-push: $*"
+    "$@"
+}
+
+run uv run ruff format --check .
+run uv run ruff check .
+run uv run pytest -q
+run uv run mypy .
