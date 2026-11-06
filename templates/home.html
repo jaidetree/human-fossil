@@ -70,12 +70,17 @@
 	</section>
 
 	{% with callout=sections.manga_callout %}
-		<section id="manga-callout">
+		<section
+			id="manga-callout"
+			class="p-8 bg-accent/70 rounded-xl flex flex-row"
+		>
 			{{ callout.content|markdownify }}
-			<a href="{{ callout.href }}">{{ callout.action }}</a>
-			{% if callout.price %}
-				<span>${{ callout.price }}</span>
-			{% endif %}
+			<div>
+				<a href="{{ callout.href }}" class="btn">{{ callout.action }}</a>
+				{% if callout.price %}
+					<span>${{ callout.price }}</span>
+				{% endif %}
+			</div>
 		</section>
 	{% endwith %}
 
@@ -87,6 +92,7 @@
 				<img
 					src="{{ illustration.image.url }}"
 					alt="{{ illustration.title }}"
+					class="object-cover w-fill aspect-square"
 				/>
 			{% endfor %}
 		</div>
