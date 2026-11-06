@@ -6,10 +6,10 @@
 {% block content %}
 	{% with hero=sections.hero %}
 		<section id="hero">
-			<h1 class="font-display text-[10rem] text-accent leading-snug -ml-2">
+			<h1 class="font-display text-[10rem] text-accent leading-[0.8] -ml-2">
 				{{ hero.title }}
 			</h1>
-			<p class="relative -top-14">{{ hero.subtitle }}</p>
+			<p class="relative -mt-6 mb-8">{{ hero.subtitle }}</p>
 
 			<div class="prose">
 				{{ hero.content|markdownify }}
