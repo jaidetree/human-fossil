@@ -15,3 +15,7 @@ Roles applied as frontmatter `tags:` on issue files. See `docs/agents/triage-lab
 ### Domain docs
 
 Single-context: glossary at `.human-fossil-vault/Domain/CONTEXT.md`, ADRs at `.human-fossil-vault/ADRs`. See `docs/agents/domain.md`.
+
+## Testing
+
+Views: assert on `response.context` only. Never assert on rendered HTML/markup; templates change fast and such tests are brittle.
