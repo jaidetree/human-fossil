@@ -81,3 +81,7 @@ the staging Fly app `human-fossil-staging`. `fly deploy` requires
 Fly credentials not available in every environment; see the ticket in
 `.human-fossil-vault/Projects/django-migration/issues/Review/` for the manual
 deploy steps.
+
+Pushes to `main` auto-deploy via `.github/workflows/fly-deploy.yml` once CI
+passes. Requires the `FLY_API_TOKEN` GitHub repo secret
+(`fly tokens create deploy -x 999999h`).
