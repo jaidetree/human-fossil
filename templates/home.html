@@ -59,9 +59,12 @@
 
 	<section id="manga">
 		<h2>{{ sections.manga.title }}</h2>
-		{% for page in manga_preview_pages %}
-			<img src="{{ page.image.url }}" alt="{{ page.title }}" />
-		{% endfor %}
+
+		<div class="grid grid-cols-3 gap-8">
+			{% for page in manga_preview_pages %}
+				<img src="{{ page.image.url }}" alt="{{ page.title }}" />
+			{% endfor %}
+		</div>
 	</section>
 
 	{% with callout=sections.manga_callout %}
@@ -96,7 +99,7 @@
 			<h2>{{ events.title }}</h2>
 			{{ events.content|markdownify }}
 
-			<section id="event-photos">
+			<section id="event-photos" class="grid grid-cols-2 gap-8">
 				{% for photo in event_photos %}
 					<figure>
 						<img src="{{ photo.image.url }}" alt="{{ photo.title }}" />
