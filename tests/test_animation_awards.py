@@ -27,6 +27,15 @@ def test_defaults_and_str() -> None:
     assert str(award) == "Best Short"
 
 
+@pytest.mark.django_db
+def test_award_and_category_are_optional_text() -> None:
+    assert make_award().award == ""
+    award = make_award(award="Award Winner", category="Best Picture")
+    award.full_clean()
+    award.refresh_from_db()
+    assert (award.award, award.category) == ("Award Winner", "Best Picture")
+
+
 def test_verbose_names_are_title_cased() -> None:
     assert AnimationAward._meta.verbose_name == "Animation Award"
     assert AnimationAward._meta.verbose_name_plural == "Animation Awards"
@@ -109,3 +118,12 @@ def test_home_renders_awards_list_inside_animation_even_when_empty(client: Clien
     html = client.get(reverse("home")).content.decode()
     animation = html[html.index('id="animation"') : html.index('id="manga"')]
     assert 'id="animation-awards"' in animation
+
+
+@pytest.mark.django_db
+def test_home_context_awards_carry_award_and_category(client: Client) -> None:
+    make_award(award="Award Winner", category="Best Picture")
+
+    (award,) = client.get(reverse("home")).context["animation_awards"]
+
+    assert (award.award, award.category) == ("Award Winner", "Best Picture")

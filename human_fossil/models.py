@@ -213,6 +213,8 @@ class Section(models.Model):
 
 class AnimationAward(models.Model):
     title = models.CharField(max_length=255)
+    award = models.CharField(max_length=255, blank=True, help_text='e.g. "Award Winner"')
+    category = models.CharField(max_length=255, blank=True, help_text='e.g. "Best Picture"')
     year = models.PositiveSmallIntegerField()
     # FileField, not ImageField: ImageField rejects SVG.
     icon = models.FileField(

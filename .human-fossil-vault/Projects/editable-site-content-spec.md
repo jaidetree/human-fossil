@@ -266,3 +266,6 @@ sections keep their current queries; only their headings come from Sections.
   behaviour is tested by rendering small templates through the real context
   processor; page order via `html.index` (precedent: test_characters).
 - Seeded rows exist in the test DB, so Section tests use non-seeded keys.
+- `AnimationAward` gains optional `award` ("Award Winner") and `category`
+  ("Best Picture") char fields (migration 0011); shown in admin list/search.
+- `home.html` renders `award` (bold) and `category` per award when set.

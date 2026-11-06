@@ -45,6 +45,8 @@
 					<li>
 						<img src="{{ award.icon.url }}" alt="{{ award.title }}" />
 						{{ award.title }} {{ award.year }}
+						{% if award.award %}<strong>{{ award.award }}</strong>{% endif %}
+						{% if award.category %}<span>{{ award.category }}</span>{% endif %}
 					</li>
 				{% endfor %}
 			</ul>

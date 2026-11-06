@@ -115,6 +115,6 @@ class SectionAdmin(admin.ModelAdmin):
 
 @admin.register(AnimationAward)
 class AnimationAwardAdmin(RenumberingSortableAdmin):
-    list_display = ("title", "year", "is_published")
+    list_display = ("title", "award", "category", "year", "is_published")
     list_filter = ("is_published",)
-    search_fields = ("title",)
+    search_fields = ("title", "award", "category")
