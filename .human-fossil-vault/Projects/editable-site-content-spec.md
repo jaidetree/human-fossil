@@ -250,3 +250,19 @@ sections keep their current queries; only their headings come from Sections.
   whether "manage" in the hero subtitle was intentional.
 - Workflow reminders: check `spec.md` before coding and log changes there; one
   commit, 50/70 message format, tests included.
+
+## Implementation Log
+
+- Added `Section` and `AnimationAward` models (migration 0008), seed data
+  migration 0009 (`get_or_create`, never overwrites), admin for both
+  (`AnimationAward` reuses `RenumberingSortableAdmin`).
+- `human_fossil.context_processors.sections` exposes a lazy `sections` map: one
+  query, none on pages that don't use it (e.g. admin). Unknown key -> blank
+  `Section`; warning logged only under `DEBUG`.
+- `home` view adds `animation_awards`; `home.html` rewritten to the specified
+  order, with Section-driven copy. Awards list (`#animation-awards`) always
+  renders. "Event Booth Photos" heading removed per spec.
+- Testing: views assert on `response.context` (AGENTS.md); Section rendering
+  behaviour is tested by rendering small templates through the real context
+  processor; page order via `html.index` (precedent: test_characters).
+- Seeded rows exist in the test DB, so Section tests use non-seeded keys.

@@ -1,5 +1,8 @@
+import logging
 import os
 
+from django.conf import settings
+from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db import models
 from django.utils.crypto import get_random_string
 from django.utils.text import slugify
@@ -37,6 +40,21 @@ def image_upload_to(instance: "Image", filename: str) -> str:
     """
     ext = os.path.splitext(filename)[1].lower()
     return f"images/{slugify(instance.title)}-{get_random_string(8)}{ext}"
+
+
+def animation_award_upload_to(instance: "AnimationAward", filename: str) -> str:
+    """Store as ``animation_awards/<slugified title><ext>``."""
+    ext = os.path.splitext(filename)[1].lower()
+    return f"animation_awards/{slugify(instance.title)}{ext}"
+
+
+sections_logger = logging.getLogger("human_fossil.sections")
+
+# Keys double as template variable names (``sections.<key>``): no hyphens.
+section_key_validator = RegexValidator(
+    r"^[a-z][a-z0-9_]*\Z",
+    "Use a lowercase letter first, then lowercase letters, digits and underscores.",
+)
 
 
 class Event(models.Model):
@@ -141,6 +159,74 @@ class Image(models.Model):
         verbose_name = "Image"
         verbose_name_plural = "Images"
         ordering = ["-created_at"]
+
+    def __str__(self) -> str:
+        return self.title
+
+
+class Section(models.Model):
+    """Owner-editable content, referenced from templates as ``sections.<key>``.
+
+    A superset of columns; each Section fills the subset it needs. A Section
+    with an ``action`` (and usually ``url``/``price``) is a Callout.
+    """
+
+    key = models.CharField(
+        max_length=64,
+        unique=True,
+        validators=[section_key_validator],
+        help_text="Referenced as `sections.<key>` in templates.",
+    )
+    title = models.CharField(max_length=255, blank=True)
+    subtitle = models.CharField(max_length=255, blank=True)
+    content = models.TextField(blank=True, help_text="Markdown.")
+    action = models.CharField(max_length=255, blank=True, help_text="Button label.")
+    url = models.URLField(max_length=500, blank=True)
+    price = models.DecimalField(
+        max_digits=8, decimal_places=2, null=True, blank=True, help_text="USD."
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Section"
+        verbose_name_plural = "Sections"
+        ordering = ["key"]
+
+    def __str__(self) -> str:
+        return self.key
+
+    @property
+    def href(self) -> str:
+        """``url``, else a placeholder that keeps the gap visible.
+
+        ``#`` in production; under DEBUG a JS alert, plus a logged warning.
+        """
+        if self.url:
+            return self.url
+        if not settings.DEBUG:
+            return "#"
+        sections_logger.warning("Section %r has no url", self.key)
+        return "javascript:alert('Implement this!')"
+
+
+class AnimationAward(models.Model):
+    title = models.CharField(max_length=255)
+    year = models.PositiveSmallIntegerField()
+    # FileField, not ImageField: ImageField rejects SVG.
+    icon = models.FileField(
+        upload_to=animation_award_upload_to,
+        validators=[FileExtensionValidator(["png", "svg", "webp"])],
+    )
+    is_published = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Animation Award"
+        verbose_name_plural = "Animation Awards"
+        ordering = ["order"]
 
     def __str__(self) -> str:
         return self.title

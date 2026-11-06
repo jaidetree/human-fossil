@@ -1,35 +1,79 @@
 {% extends "base.html" %}
+{% load markdownify %}
 {% block title %}
 	Human Fossil Project
 {% endblock title %}
 {% block content %}
-	<section id="hero">
-		<h1>Human Fossil Project</h1>
-	</section>
+	{% with hero=sections.hero %}
+		<section id="hero">
+			<h1>{{ hero.title }}</h1>
+			<p>{{ hero.subtitle }}</p>
+			{{ hero.content|markdownify }}
+		</section>
+	{% endwith %}
 
 	<section id="characters">
-		<h2>Characters</h2>
+		<h2>{{ sections.characters.title }}</h2>
 		{% for character in characters %}
 			<img src="{{ character.image.url }}" alt="{{ character.name }}" />
 		{% endfor %}
 	</section>
 
+	{% with animation=sections.animation %}
+		<section id="animation">
+			<h2>{{ animation.title }}</h2>
+			<p>{{ animation.subtitle }}</p>
+			{{ animation.content|markdownify }}
+			<a href="{{ animation.href }}">{{ animation.action }}</a>
+			<ul id="animation-awards">
+				{% for award in animation_awards %}
+					<li>
+						<img src="{{ award.icon.url }}" alt="{{ award.title }}" />
+						{{ award.title }} {{ award.year }}
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+	{% endwith %}
+
 	<section id="manga">
-		<h2>Manga</h2>
+		<h2>{{ sections.manga.title }}</h2>
 		{% for page in manga_preview_pages %}
 			<img src="{{ page.image.url }}" alt="{{ page.title }}" />
 		{% endfor %}
 	</section>
 
+	{% with callout=sections.manga_callout %}
+		<section id="manga-callout">
+			{{ callout.content|markdownify }}
+			<a href="{{ callout.href }}">{{ callout.action }}</a>
+			{% if callout.price %}<span>${{ callout.price }}</span>{% endif %}
+		</section>
+	{% endwith %}
+
 	<section id="illustrations">
-		<h2>Illustrations</h2>
+		<h2>{{ sections.illustrations.title }}</h2>
 		{% for illustration in illustrations %}
 			<img src="{{ illustration.image.url }}" alt="{{ illustration.title }}" />
 		{% endfor %}
 	</section>
 
+	{% with callout=sections.art_book_callout %}
+		<section id="art-book-callout">
+			{{ callout.content|markdownify }}
+			<a href="{{ callout.href }}">{{ callout.action }}</a>
+			{% if callout.price %}<span>${{ callout.price }}</span>{% endif %}
+		</section>
+	{% endwith %}
+
+	{% with events=sections.events %}
+		<section id="events">
+			<h2>{{ events.title }}</h2>
+			{{ events.content|markdownify }}
+		</section>
+	{% endwith %}
+
 	<section id="event-photos">
-		<h2>Event Booth Photos</h2>
 		{% for photo in event_photos %}
 			<figure>
 				<img src="{{ photo.image.url }}" alt="{{ photo.title }}" />
