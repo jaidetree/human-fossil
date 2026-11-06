@@ -22,6 +22,12 @@ def manga_preview_page_upload_to(instance: "MangaPreviewPage", filename: str) ->
     return f"manga_preview_pages/{slugify(instance.title)}{ext}"
 
 
+def character_upload_to(instance: "Character", filename: str) -> str:
+    """Store as ``characters/<slugified name><ext>``."""
+    ext = os.path.splitext(filename)[1].lower()
+    return f"characters/{slugify(instance.name)}{ext}"
+
+
 class Event(models.Model):
     title = models.CharField(max_length=255)
     date = models.DateField()
@@ -91,3 +97,20 @@ class MangaPreviewPage(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+
+class Character(models.Model):
+    name = models.CharField(max_length=255)
+    image = models.ImageField(upload_to=character_upload_to)
+    is_published = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Character"
+        verbose_name_plural = "Characters"
+        ordering = ["order"]
+
+    def __str__(self) -> str:
+        return self.name

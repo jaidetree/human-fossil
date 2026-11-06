@@ -1,7 +1,7 @@
 from adminsortable2.admin import SortableAdminMixin, SortableTabularInline
 from django.contrib import admin
 
-from .models import Event, EventPhoto, Illustration, MangaPreviewPage
+from .models import Character, Event, EventPhoto, Illustration, MangaPreviewPage
 from .ordering import renumber
 
 
@@ -83,3 +83,10 @@ class MangaPreviewPageAdmin(RenumberingSortableAdmin):
     list_display = ("title", "is_published", "created_at")
     list_filter = ("is_published",)
     search_fields = ("title",)
+
+
+@admin.register(Character)
+class CharacterAdmin(RenumberingSortableAdmin):
+    list_display = ("name", "is_published", "created_at")
+    list_filter = ("is_published",)
+    search_fields = ("name",)
