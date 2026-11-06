@@ -50,6 +50,7 @@ def test_configures_r2_backend_when_env_vars_present(
     monkeypatch.setenv("R2_ENDPOINT_URL", "https://fake-account.r2.cloudflarestorage.com")
     monkeypatch.setenv("R2_ACCESS_KEY_ID", "fake-access-key")
     monkeypatch.setenv("R2_SECRET_ACCESS_KEY", "fake-secret-key")
+    monkeypatch.delenv("R2_CUSTOM_DOMAIN", raising=False)
 
     reloaded = reload_settings()
 
