@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     "storages",
     "adminsortable2",
     "markdownify",
-    "anymail",
     "human_fossil",
 ]
 
@@ -178,15 +177,3 @@ MARKDOWNIFY = {
         "WHITELIST_PROTOCOLS": ["http", "https", "mailto"],
     },
 }
-
-# Email — config only: no Mailjet API key is required to wire the setting
-# itself, only to send.
-EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"
-ANYMAIL = {
-    "MAILJET_API_KEY": env("MAILJET_API_KEY", default=""),
-    "MAILJET_SECRET_KEY": env("MAILJET_SECRET_KEY", default=""),
-}
-DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="info+outbox@human-fossil.com")
-
-# Where contact-form notification emails are sent — the Human Fossil inbox.
-CONTACT_NOTIFICATION_EMAIL = env("CONTACT_NOTIFICATION_EMAIL", default="info+form@human-fossil.com")
