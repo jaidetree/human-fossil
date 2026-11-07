@@ -6,7 +6,11 @@
 	@keydown.left="prev()"
 	@keydown.right="next()"
 >
-	<img :src="items[current]?.src" :alt="items[current]?.alt" />
+	<img
+		:src="items[current]?.src"
+		:alt="items[current]?.alt"
+		class="max-h-[80vh] max-w-[40rem] w-auto h-auto"
+	/>
 	<button type="button" @click="prev()" :disabled="!hasPrev">Previous</button>
 	<span x-text="`${current + 1} / ${total}`"></span>
 	<button type="button" @click="next()" :disabled="!hasNext">Next</button>

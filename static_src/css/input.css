@@ -165,35 +165,38 @@
 @layer components {
 	.lightbox,
 	.lightbox::backdrop {
-		opacity: 0;
+		@apply opacity-0;
 		transition:
-			opacity 300ms ease-in-out,
-			translate 300ms ease-in-out,
-			display 300ms allow-discrete,
-			overlay 300ms allow-discrete;
+			opacity 500ms ease-in-out,
+			translate 500ms ease-in-out,
+			backdrop-filter 500ms ease-in-out,
+			display 500ms allow-discrete,
+			overlay 500ms allow-discrete;
+	}
+
+	.lightbox::backdrop {
+		@apply bg-citrus/75 backdrop-blur-sm;
 	}
 
 	.lightbox {
-		translate: 0 -2rem;
+		@apply -translate-y-8 flex flex-col items-center justify-center border-none m-auto bg-surface drop-shadow-2xl p-8;
 	}
 
 	.lightbox:open,
 	.lightbox:open::backdrop {
-		opacity: 1;
+		@apply opacity-100;
 	}
 
 	.lightbox:open {
-		translate: 0 0;
+		@apply translate-y-0;
 	}
 
 	@starting-style {
-		.lightbox:open,
-		.lightbox:open::backdrop {
-			opacity: 0;
-		}
-
 		.lightbox:open {
-			translate: 0 -2rem;
+			@apply opacity-0 -translate-y-8;
+		}
+		.lightbox:open::backdrop {
+			@apply opacity-0 backdrop-blur-none;
 		}
 	}
 
