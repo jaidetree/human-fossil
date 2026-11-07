@@ -166,8 +166,8 @@
 	.lightbox {
 		@apply fixed inset-0 w-full h-full max-w-none max-h-none overflow-visible flex-col items-center justify-center border-none bg-transparent;
 		transition:
-			display 750ms allow-discrete,
-			overlay 750ms allow-discrete;
+			display 550ms allow-discrete,
+			overlay 550ms allow-discrete;
 	}
 
 	.lightbox:open {
@@ -179,15 +179,15 @@
 		clip-path: inset(calc(50% - 2px) 0);
 		transition:
 			clip-path 250ms ease-in,
-			translate 500ms ease-in-out 250ms;
+			translate 300ms ease-in-out 250ms;
 	}
 
 	.lightbox:open .modal {
 		@apply translate-x-0;
 		clip-path: inset(-3rem);
 		transition:
-			translate 500ms ease-in-out,
-			clip-path 250ms ease-out 500ms;
+			translate 300ms ease-in-out,
+			clip-path 250ms ease-out 300ms;
 	}
 
 	.lightbox .close {
@@ -205,7 +205,7 @@
 
 	.lightbox:open .nav,
 	.lightbox:open .content {
-		@apply opacity-100 transition-opacity duration-250 ease-out delay-500;
+		@apply opacity-100 transition-opacity duration-250 ease-out delay-300;
 	}
 
 	.lightbox .arrow {
