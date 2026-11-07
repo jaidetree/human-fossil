@@ -149,11 +149,19 @@
 		backdrop-filter: blur(2px);
 	}
 
-	#upcoming-events .event header {
-		@apply bg-accent;
+	#upcoming-events .event {
+		@apply bg-accent text-surface;
 	}
 
-	#past-events .event header {
+	#upcoming-events .month {
+		@apply text-accent;
+	}
+
+	#past-events .event {
 		@apply bg-white/20;
+	}
+
+	#past-events .month {
+		@apply text-surface;
 	}
 }

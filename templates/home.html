@@ -185,25 +185,27 @@
 					{% endfor %}
 				</section>
 
-				<section id="upcoming-events">
-					<h3>Upcoming Events</h3>
-					<ul class="grid lg:grid-cols-4 gap-4 lg:gap-8 items-stretch">
-						{% for event in upcoming_events %}
-							{% include "partials/event_card.html" %}
-						{% endfor %}
-					</ul>
-				</section>
+				<div class="grid lg:grid-cols-2 gap-4 lg:gap-8">
+					<section id="upcoming-events">
+						<h3>Upcoming Events</h3>
+						<ul class="grid grid-cols-1 gap-4 lg:gap-8 items-stretch">
+							{% for event in upcoming_events %}
+								{% include "partials/event_card.html" %}
+							{% endfor %}
+						</ul>
+					</section>
 
-				<section id="past-events">
-					<h3>Past Events</h3>
-					<ul
-						class="grid lg:grid-cols-4 gap-4 lg:gap-8 items-stretch opacity-50"
-					>
-						{% for event in past_events %}
-							{% include "partials/event_card.html" %}
-						{% endfor %}
-					</ul>
-				</section>
+					<section id="past-events">
+						<h3>Past Events</h3>
+						<ul
+							class="grid grid-cols-1 gap-4 lg:gap-8 items-stretch opacity-50"
+						>
+							{% for event in past_events %}
+								{% include "partials/event_card.html" %}
+							{% endfor %}
+						</ul>
+					</section>
+				</div>
 			</section>
 		{% endwith %}
 
