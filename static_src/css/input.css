@@ -107,6 +107,21 @@
 		@apply bg-accent text-surface px-4 py-2 rounded-xl;
 	}
 
+	#animation-callout {
+		background:
+			linear-gradient(
+				to right,
+				color-mix(in oklab, var(--color-orange-950) 55%, transparent 45%) 50%,
+				color-mix(in oklab, var(--color-black) 100%, transparent 0%) 100%
+			),
+			url(/static/images/human-fossil-short.jpg) 140% 45% / 120% no-repeat,
+			color-mix(in oklab, var(--color-black) 60%, transparent 40%);
+	}
+
+	#animation-callout > div {
+		backdrop-filter: blur(5px);
+	}
+
 	#manga-callout {
 		background:
 			linear-gradient(
