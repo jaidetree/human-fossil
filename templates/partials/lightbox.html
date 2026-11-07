@@ -6,13 +6,36 @@
 	@keydown.left="prev()"
 	@keydown.right="next()"
 >
-	<img
-		:src="items[current]?.src"
-		:alt="items[current]?.alt"
-		class="max-h-[80vh] max-w-[40rem] w-auto h-auto"
-	/>
-	<button type="button" @click="prev()" :disabled="!hasPrev">Previous</button>
-	<span x-text="`${current + 1} / ${total}`"></span>
-	<button type="button" @click="next()" :disabled="!hasNext">Next</button>
-	<button type="button" @click="close()">Close</button>
+	<div class="modal">
+		<div class="content">
+			<button type="button" @click="close()">Close</button>
+			<img
+				:src="items[current]?.src"
+				:alt="items[current]?.alt"
+				class="max-h-[80vh] max-w-160 w-auto h-auto"
+			/>
+			<div>
+				<span x-text="items[current]?.alt"></span>
+				<span x-text="`${current + 1} / ${total}`"></span>
+			</div>
+		</div>
+	</div>
+	<div class="nav">
+		<button
+			class="arrow prev"
+			type="button"
+			@click="prev()"
+			:disabled="!hasPrev"
+		>
+			<i class="fa-regular fa-chevron-left text-4xl"></i>
+		</button>
+		<button
+			class="arrow next"
+			type="button"
+			@click="next()"
+			:disabled="!hasNext"
+		>
+			<i class="fa-regular fa-chevron-right text-4xl"></i>
+		</button>
+	</div>
 </dialog>

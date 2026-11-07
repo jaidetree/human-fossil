@@ -163,37 +163,81 @@
 }
 
 @layer components {
-	.lightbox,
-	.lightbox::backdrop {
-		@apply opacity-0;
-		transition:
-			opacity 500ms ease-in-out,
-			translate 500ms ease-in-out,
-			backdrop-filter 500ms ease-in-out,
-			display 500ms allow-discrete,
-			overlay 500ms allow-discrete;
-	}
-
-	.lightbox::backdrop {
-		@apply bg-citrus/75 backdrop-blur-sm;
-	}
-
+	/* Lightbox: full-window container. Only the panel and nav animate. */
 	.lightbox {
-		@apply -translate-y-8 flex flex-col items-center justify-center border-none m-auto bg-surface drop-shadow-2xl p-8;
-	}
-
-	.lightbox:open,
-	.lightbox:open::backdrop {
-		@apply opacity-100;
+		@apply fixed inset-0 w-full h-full max-w-none max-h-none overflow-visible flex-col items-center justify-center border-none bg-transparent;
+		transition:
+			display 750ms allow-discrete,
+			overlay 750ms allow-discrete;
 	}
 
 	.lightbox:open {
-		@apply translate-y-0;
+		@apply flex;
+	}
+
+	.lightbox .modal {
+		@apply translate-x-[-100vw] bg-white/20 shadow-xl/40 p-8 shadow-black;
+		clip-path: inset(calc(50% - 2px) 0);
+		transition:
+			clip-path 250ms ease-in,
+			translate 500ms ease-in-out 250ms;
+	}
+
+	.lightbox:open .modal {
+		@apply translate-x-0;
+		clip-path: inset(-3rem);
+		transition:
+			translate 500ms ease-in-out,
+			clip-path 250ms ease-out 500ms;
+	}
+
+	.lightbox .nav,
+	.lightbox .content {
+		@apply opacity-0 transition-opacity duration-250 ease-in;
+	}
+
+	.lightbox .nav {
+		@apply inset-0 pointer-events-none;
+	}
+
+	.lightbox:open .nav,
+	.lightbox:open .content {
+		@apply opacity-100 transition-opacity duration-250 ease-out delay-500;
+	}
+
+	.lightbox .arrow {
+		@apply bg-white/10 shadow-lg/20 rounded-full shadow-black size-20 absolute top-0 bottom-0 my-auto pointer-events-auto opacity-50 hover:opacity-100;
+		transition: opacity 100ms ease-out;
+	}
+
+	.lightbox .arrow.prev {
+		@apply left-8;
+	}
+
+	.lightbox .arrow.next {
+		@apply right-8;
+	}
+
+	/* Backdrop */
+	.lightbox::backdrop {
+		@apply bg-surface/70 backdrop-blur-none opacity-0;
+		transition:
+			opacity 500ms ease-in-out,
+			backdrop-filter 500ms ease-in-out;
+	}
+
+	.lightbox:open::backdrop {
+		@apply backdrop-blur-sm opacity-100;
 	}
 
 	@starting-style {
-		.lightbox:open {
-			@apply opacity-0 -translate-y-8;
+		.lightbox:open .modal {
+			translate: -100vw 0;
+			clip-path: inset(calc(50% - 2px) 0);
+		}
+		.lightbox:open .nav,
+		.lightbox:open .content {
+			@apply opacity-0;
 		}
 		.lightbox:open::backdrop {
 			@apply opacity-0 backdrop-blur-none;
