@@ -161,12 +161,14 @@
 		{% endwith %}
 
 		{% with events=sections.events %}
-			<section id="events">
-				<h2>{{ events.title }}</h2>
+			<section id="events" class="flex flex-col gap-8">
+				<section id="events-intro">
+					<h2>{{ events.title }}</h2>
 
-				<div class="prose text-lg mb-8">
-					{{ events.content|markdownify }}
-				</div>
+					<div class="prose text-lg mb-8">
+						{{ events.content|markdownify }}
+					</div>
+				</section>
 
 				<section id="event-photos" class="grid grid-cols-2 gap-8">
 					{% for photo in event_photos %}
@@ -185,28 +187,20 @@
 
 				<section id="upcoming-events">
 					<h3>Upcoming Events</h3>
-					<ul>
+					<ul class="grid lg:grid-cols-4 gap-4 lg:gap-8 items-stretch">
 						{% for event in upcoming_events %}
-							<li>
-								{{ event.title }} — {{ event.date }} — {{ event.location }}
-								{% if event.booth_number %}
-									— Booth {{ event.booth_number }}
-								{% endif %}
-							</li>
+							{% include "partials/event_card.html" %}
 						{% endfor %}
 					</ul>
 				</section>
 
 				<section id="past-events">
 					<h3>Past Events</h3>
-					<ul>
+					<ul
+						class="grid lg:grid-cols-4 gap-4 lg:gap-8 items-stretch opacity-50"
+					>
 						{% for event in past_events %}
-							<li>
-								{{ event.title }} — {{ event.date }} — {{ event.location }}
-								{% if event.booth_number %}
-									— Booth {{ event.booth_number }}
-								{% endif %}
-							</li>
+							{% include "partials/event_card.html" %}
 						{% endfor %}
 					</ul>
 				</section>

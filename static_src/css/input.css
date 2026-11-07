@@ -20,6 +20,7 @@
 
 	--color-surface: #212720;
 	--color-accent: #defb67;
+	--color-citrus: #e5722f;
 }
 
 :root {
@@ -126,7 +127,7 @@
 		background:
 			linear-gradient(
 				to right,
-				color-mix(in oklab, var(--color-black) 75%, transparent 25%) 60%,
+				color-mix(in oklab, var(--color-orange-950) 75%, transparent 25%) 60%,
 				color-mix(in oklab, var(--color-black) 100%, transparent 0%) 100%
 			),
 			url(/static/images/human-fossil-manga-cover.jpg) 140% 40% / 120% no-repeat,
@@ -146,5 +147,13 @@
 
 	#art-book-callout > div {
 		backdrop-filter: blur(2px);
+	}
+
+	#upcoming-events .event header {
+		@apply bg-accent;
+	}
+
+	#past-events .event header {
+		@apply bg-white/20;
 	}
 }

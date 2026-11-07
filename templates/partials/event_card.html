@@ -1,0 +1,24 @@
+<li class="event">
+	<header
+		class="rounded-t-2xl p-4 font-display uppercase text-2xl flex flex-col items-center justify-center text-surface"
+	>
+		{{ event.date }}
+	</header>
+	<div
+		class="bg-white/10 rounded-b-2xl p-4 grow aspect-[1.25] text-center flex flex-col items-center justify-center"
+	>
+		<span class="block font-display text-4xl">{{ event.title }}</span>
+		<span class="text-lg flex flex-row items-baseline gap-1"
+			><span class="hero-map-pin size-5 text-accent"></span
+			>{{ event.location }}</span
+		>
+		<div class="text-2xl mt-4">
+			{% if event.booth_number %}
+				<span class="font-display uppercase">Booth</span>
+				<span class="text-accent font-display uppercase"
+					>{{ event.booth_number }}</span
+				>
+			{% endif %}
+		</div>
+	</div>
+</li>
