@@ -175,7 +175,7 @@
 	}
 
 	.lightbox .modal {
-		@apply translate-x-[-100vw] bg-white/20 shadow-xl/40 p-8 shadow-black;
+		@apply translate-x-[-100vw] bg-white/20 shadow-xl/40 p-4 lg:p-8 shadow-black;
 		clip-path: inset(calc(50% - 2px) 0);
 		transition:
 			clip-path 250ms ease-in,
