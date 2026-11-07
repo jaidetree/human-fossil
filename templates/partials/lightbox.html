@@ -1,21 +1,27 @@
 <dialog
 	class="lightbox"
+	aria-label="Image viewer"
 	x-ref="dialog"
 	@cancel.prevent="close()"
 	@click="$event.target === $el && close()"
-	@keydown.left="prev()"
-	@keydown.right="next()"
+	@keydown.left.window="$el.open && prev()"
+	@keydown.right.window="$el.open && next()"
 >
 	<div class="modal">
 		<div class="content">
-			<button type="button" @click="close()">Close</button>
+			<button type="button" @click="close()" class="close">
+				<i class="fa-regular fa-xmark" aria-hidden="true"></i>
+				<span class="sr-only">Close</span>
+			</button>
 			<img
 				:src="items[current]?.src"
 				:alt="items[current]?.alt"
 				class="max-h-[80vh] max-w-160 w-auto h-auto"
 			/>
-			<div>
-				<span x-text="items[current]?.alt"></span>
+			<div
+				class="text-xl font-display flex flex-row justify-center mt-4"
+				aria-live="polite"
+			>
 				<span x-text="`${current + 1} / ${total}`"></span>
 			</div>
 		</div>
@@ -27,7 +33,8 @@
 			@click="prev()"
 			:disabled="!hasPrev"
 		>
-			<i class="fa-regular fa-chevron-left text-4xl"></i>
+			<i class="fa-regular fa-chevron-left text-4xl" aria-hidden="true"></i>
+			<span class="sr-only">Previous image</span>
 		</button>
 		<button
 			class="arrow next"
@@ -35,7 +42,8 @@
 			@click="next()"
 			:disabled="!hasNext"
 		>
-			<i class="fa-regular fa-chevron-right text-4xl"></i>
+			<i class="fa-regular fa-chevron-right text-4xl" aria-hidden="true"></i>
+			<span class="sr-only">Next image</span>
 		</button>
 	</div>
 </dialog>
