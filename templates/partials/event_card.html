@@ -1,12 +1,14 @@
 <li class="event rounded-md p-4 flex flex-row justify-between items-center">
 	<div>
 		<span class="block text-xl">{{ event.title }}</span>
-		<div class="font-display text-xl">
-			<span class="inline-flex flex-row items-baseline gap-1"
-				><span class="hero-map-pin size-4 pin"></span>{{ event.location }}</span
+		<div class="font-display text-xl flex flex-row items-center gap-1">
+			<span class="inline-flex flex-row items-baseline gap-0.5"
+				><i class="fa-regular fa-location-dot text-base pin"></i
+				>{{ event.location }}</span
 			>
 			{% if event.booth_number %}
-				<span class="uppercase">• Booth</span>
+				<span>•</span>
+				<span class="uppercase">Booth</span>
 				<span class="uppercase">{{ event.booth_number }}</span>
 			{% endif %}
 		</div>
