@@ -6,6 +6,10 @@
 @source "../../templates";
 @source not "../../.direnv";
 
+/* Inline utilities that may be used in dynamic content */
+
+@source inline("aspect-video");
+
 /* A Tailwind plugin that makes "hero-#{ICON}" classes available.
    The heroicons SVGs come from the "heroicons" npm package. */
 @plugin "../vendor/heroicons";
