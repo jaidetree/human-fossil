@@ -1,0 +1,14 @@
+<dialog
+	class="lightbox"
+	x-ref="dialog"
+	@cancel.prevent="close()"
+	@click="$event.target === $el && close()"
+	@keydown.left="prev()"
+	@keydown.right="next()"
+>
+	<img :src="items[current]?.src" :alt="items[current]?.alt" />
+	<button type="button" @click="prev()" :disabled="!hasPrev">Previous</button>
+	<span x-text="`${current + 1} / ${total}`"></span>
+	<button type="button" @click="next()" :disabled="!hasNext">Next</button>
+	<button type="button" @click="close()">Close</button>
+</dialog>

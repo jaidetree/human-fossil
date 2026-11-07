@@ -109,14 +109,24 @@
 		<section id="manga">
 			<h2>{{ sections.manga.title }}</h2>
 
-			<div class="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
-				{% for page in manga_preview_pages %}
-					<img
-						src="{{ page.image.url }}"
-						alt="{{ page.title }}"
-						class="aspect-[0.72] object-cover"
-					/>
-				{% endfor %}
+			<div x-data="lightbox">
+				<div class="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
+					{% for page in manga_preview_pages %}
+						<button
+							type="button"
+							data-lightbox-item
+							data-src="{{ page.image.url }}"
+							@click="open({{ forloop.counter0 }})"
+						>
+							<img
+								src="{{ page.image.url }}"
+								alt="{{ page.title }}"
+								class="aspect-[0.72] object-cover"
+							/>
+						</button>
+					{% endfor %}
+				</div>
+				{% include "partials/lightbox.html" %}
 			</div>
 		</section>
 
