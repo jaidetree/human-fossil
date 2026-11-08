@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "storages",
     "adminsortable2",
     "markdownify",
+    "sorl.thumbnail",
     "human_fossil",
 ]
 

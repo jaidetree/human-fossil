@@ -13,6 +13,7 @@ dependencies = [
     "django-markdownify>=0.9.7",
     "pillow>=12.3.0",
     "django-storages[s3]>=1.14.6",
+    "sorl-thumbnail>=13.4.0",
 ]
 
 [dependency-groups]
@@ -49,7 +50,7 @@ module = "adminsortable2.*"
 ignore_missing_imports = true
 
 [[tool.mypy.overrides]]
-module = ["boto3.*", "storages.*"]
+module = ["boto3.*", "storages.*", "sorl.*"]
 ignore_missing_imports = true
 
 [tool.ruff]

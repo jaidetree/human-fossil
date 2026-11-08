@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load markdownify %}
+{% load markdownify thumbnail %}
 {% block title %}
 	Project Human Fossil
 {% endblock title %}
@@ -118,11 +118,13 @@
 							data-src="{{ page.image.url }}"
 							@click="open({{ forloop.counter0 }})"
 						>
+							{% thumbnail page.image "720x1000" crop="center" format="WEBP" as thumb %}
 							<img
-								src="{{ page.image.url }}"
+								src="{{ thumb.url }}"
 								alt="{{ page.title }}"
 								class="aspect-[0.72] object-cover"
 							/>
+							{% endthumbnail %}
 						</button>
 					{% endfor %}
 				</div>
@@ -164,11 +166,13 @@
 							data-src="{{ illustration.image.url }}"
 							@click="open({{ forloop.counter0 }})"
 						>
+							{% thumbnail illustration.image "720x720" crop="center" format="WEBP" as thumb %}
 							<img
-								src="{{ illustration.image.url }}"
+								src="{{ thumb.url }}"
 								alt="{{ illustration.title }}"
 								class="object-cover w-fill aspect-square"
 							/>
+							{% endthumbnail %}
 						</button>
 					{% endfor %}
 				</div>
@@ -221,11 +225,13 @@
 								data-src="{{ photo.image.url }}"
 								@click="open({{ forloop.counter0 }})"
 							>
+								{% thumbnail photo.image "540x982" crop="center" format="WEBP" as thumb %}
 								<img
-									src="{{ photo.image.url }}"
+									src="{{ thumb.url }}"
 									alt="{{ photo.title }}"
 									class="object-cover aspect-[0.55]"
 								/>
+								{% endthumbnail %}
 							</button>
 							{% if photo.caption %}
 								<figcaption>{{ photo.caption }}</figcaption>
