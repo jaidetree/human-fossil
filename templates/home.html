@@ -266,7 +266,16 @@
 		{% with creator=sections.creator %}
 			<section id="creator">
 				<h2>{{ creator.title }}</h2>
-				{{ creator.content|markdownify }}
+
+				<div class="prose text-lg">
+					<img
+						alt="{{ creator.images.0.title }}"
+						src="{{ creator.images.0.image.url }}"
+						class="float-left max-w-52 aspect-square mr-4 mb-4 mt-1"
+					/>
+
+					{{ creator.content|markdownify }}
+				</div>
 			</section>
 		{% endwith %}
 	</div>
