@@ -27,7 +27,12 @@
 
 @layer base {
 	body {
-		@apply bg-surface p-4 lg:p-16;
+		@apply p-4 lg:p-16 bg-surface;
+	}
+
+	.background {
+		@apply fixed w-screen h-screen top-0 left-0 -z-1 bg-blend-soft-light;
+		background: url(/static/images/human-fossil-bg.jpg) top left / cover;
 	}
 
 	h1,
