@@ -36,3 +36,6 @@ postgres_data/
 
 # Notes
 prompts.md
+# Font Awesome webfonts copied from node_modules by build:css
+/static/webfonts/
+/static_src/css/fontawesome-base.css

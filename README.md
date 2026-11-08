@@ -11,6 +11,9 @@ npm install         # install Tailwind/esbuild CLIs
 npm run build:css   # compile static_src/css/input.css -> static/css/app.css
 ```
 
+`npm install` needs `FA_NPM_TOKEN` (Font Awesome Pro package token) in the
+environment; `.npmrc` reads it. Put `export FA_NPM_TOKEN=...` in `.envrc`.
+
 ## Local Postgres
 
 Local dev/CI use a Nix-provisioned Postgres, not a system install or a

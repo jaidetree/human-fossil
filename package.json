@@ -2,8 +2,8 @@
   "name": "human-fossil",
   "private": true,
   "scripts": {
-    "build:css": "tailwindcss -i static_src/css/input.css -o static/css/app.css --minify",
-    "watch:css": "tailwindcss -i static_src/css/input.css -o static/css/app.css --watch",
+    "build:css": "node scripts/fontawesome.mjs && tailwindcss -i static_src/css/input.css -o static/css/app.css --minify",
+    "watch:css": "node scripts/fontawesome.mjs && tailwindcss -i static_src/css/input.css -o static/css/app.css --watch",
     "build": "npm run build:css",
     "dev": "concurrently -n css,django -c yellow,green \"npm:watch:css\" \"./manage.py runserver\"",
     "format": "prettier --write .",
@@ -16,5 +16,8 @@
     "prettier": "^3.9.6",
     "prettier-plugin-django-templates": "^0.3.1",
     "tailwindcss": "^4.1.12"
+  },
+  "dependencies": {
+    "@awesome.me/kit-ab3c4f3ba9": "^1.0.3"
   }
 }
