@@ -237,7 +237,7 @@
 	button[data-lightbox-item] {
 		@apply relative cursor-pointer transition-all duration-250 ease-in-out;
 		@apply translate-y-0 hover:-translate-y-4;
-		@apply inner-glow-none hover:inner-glow-md hover:inner-glow-citrus/20;
+		@apply inner-glow-none hover:inner-glow-xs hover:inner-glow-accent/30;
 		@apply shadow-none hover:shadow-xl hover:shadow-black/60;
 	}
 
@@ -294,8 +294,10 @@
 	}
 
 	.lightbox .arrow {
-		@apply bg-white/10 shadow-lg/20 rounded-full shadow-black size-20 absolute top-0 bottom-0 my-auto pointer-events-auto opacity-50 hover:opacity-100;
-		transition: opacity 100ms ease-out;
+		@apply rounded-full size-20 pointer-events-auto;
+		@apply absolute top-0 bottom-0 my-auto;
+		@apply opacity-50 hover:opacity-100 bg-white/10 shadow-lg/20 shadow-black;
+		@apply transition-opacity duration-100 ease-out;
 	}
 
 	.lightbox .arrow.prev {
