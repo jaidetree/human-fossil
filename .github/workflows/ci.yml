@@ -33,6 +33,8 @@ jobs:
 
       - name: npm install
         run: nix develop -c npm ci
+        env:
+          FA_NPM_TOKEN: ${{ secrets.FA_NPM_TOKEN }}
 
       - name: Build Tailwind CSS
         run: nix develop -c npm run build:css

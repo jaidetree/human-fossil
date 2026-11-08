@@ -29,7 +29,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl gnupg \
 COPY . .
 RUN uv sync --frozen --no-dev
 
-RUN npm ci && npm run build:css && rm -rf node_modules
+# FA_NPM_TOKEN is a build secret (flyctl deploy --build-secret): mounted for
+# this step only, so it never lands in an image layer. .npmrc reads it.
+RUN --mount=type=secret,id=FA_NPM_TOKEN \
+    FA_NPM_TOKEN="$(cat /run/secrets/FA_NPM_TOKEN)" \
+    && export FA_NPM_TOKEN \
+    && npm ci && npm run build:css && rm -rf node_modules
 
 # SECRET_KEY/DATABASE_URL aren't needed for collectstatic (no DB access,
 # and STATIC_URL doesn't depend on secrets), but Django's settings module
