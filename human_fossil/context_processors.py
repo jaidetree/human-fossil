@@ -21,7 +21,8 @@ class SectionMap(dict[str, Section]):
 
 
 def load_sections() -> SectionMap:
-    return SectionMap((section.key, section) for section in Section.objects.all())
+    queryset = Section.objects.prefetch_related("section_images", "section_meta")
+    return SectionMap((section.key, section) for section in queryset)
 
 
 def sections(request: HttpRequest) -> dict[str, Any]:

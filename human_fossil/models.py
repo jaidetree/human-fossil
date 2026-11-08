@@ -48,6 +48,12 @@ def animation_award_upload_to(instance: "AnimationAward", filename: str) -> str:
     return f"animation_awards/{slugify(instance.title)}{ext}"
 
 
+def section_image_upload_to(instance: "SectionImage", filename: str) -> str:
+    """Store as ``section_images/<section key>-<random><ext>``."""
+    ext = os.path.splitext(filename)[1].lower()
+    return f"section_images/{instance.section.key}-{get_random_string(8)}{ext}"
+
+
 sections_logger = logging.getLogger("human_fossil.sections")
 
 # Keys double as template variable names (``sections.<key>``): no hyphens.
@@ -209,6 +215,60 @@ class Section(models.Model):
             return "#"
         sections_logger.warning("Section %r has no url", self.key)
         return "javascript:alert('Implement this!')"
+
+    @property
+    def images(self) -> list["SectionImage"]:
+        """Ordered images, so templates can index: ``sections.<key>.images.0``."""
+        if self.pk is None:
+            return []
+        return list(self.section_images.all())
+
+    @property
+    def meta(self) -> dict[str, str]:
+        """Name -> value, so templates can read ``sections.<key>.meta.<name>``."""
+        if self.pk is None:
+            return {}
+        return {entry.name: entry.value for entry in self.section_meta.all()}
+
+
+class SectionImage(models.Model):
+    """Image attached to a Section; the title doubles as alt text."""
+
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name="section_images")
+    title = models.CharField(max_length=255, blank=True, help_text="Alt text.")
+    image = models.ImageField(upload_to=section_image_upload_to)
+    order = models.PositiveIntegerField(default=0, db_index=True)
+
+    class Meta:
+        verbose_name = "Section Image"
+        verbose_name_plural = "Section Images"
+        ordering = ["order", "pk"]
+
+    def __str__(self) -> str:
+        return self.title or str(self.image)
+
+
+class SectionMeta(models.Model):
+    """Free-form named value on a Section: ``sections.<key>.meta.<name>``."""
+
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name="section_meta")
+    name = models.CharField(
+        max_length=64,
+        validators=[section_key_validator],
+        help_text="Referenced as `meta.<name>` in templates.",
+    )
+    value = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name = "Section Meta"
+        verbose_name_plural = "Section Meta"
+        ordering = ["name"]
+        constraints = [
+            models.UniqueConstraint(fields=["section", "name"], name="unique_section_meta_name")
+        ]
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class AnimationAward(models.Model):

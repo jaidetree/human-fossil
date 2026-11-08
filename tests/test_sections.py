@@ -175,12 +175,12 @@ def test_missing_key_warns_naming_the_key_in_debug(caplog: pytest.LogCaptureFixt
 
 
 @pytest.mark.django_db
-def test_all_sections_load_in_one_query(django_assert_num_queries) -> None:
+def test_all_sections_load_in_constant_queries(django_assert_num_queries) -> None:
     for key in ("a", "b", "c"):
         make_section(key)
-    with django_assert_num_queries(1):
+    with django_assert_num_queries(3):  # sections + prefetched images + meta
         render("{{ sections.a.title }}")
-    with django_assert_num_queries(1):
+    with django_assert_num_queries(3):
         render(
             "{{ sections.a.title }}{{ sections.b.title }}"
             "{{ sections.c.title }}{{ sections.d.title }}"
@@ -200,7 +200,15 @@ def test_admin_registers_section() -> None:
 @pytest.mark.django_db
 def test_admin_add_creates_section(admin_client: Client) -> None:
     response = admin_client.post(
-        reverse("admin:human_fossil_section_add"), {"key": "extra", "title": "Extra"}
+        reverse("admin:human_fossil_section_add"),
+        {
+            "key": "extra",
+            "title": "Extra",
+            "section_images-TOTAL_FORMS": 0,
+            "section_images-INITIAL_FORMS": 0,
+            "section_meta-TOTAL_FORMS": 0,
+            "section_meta-INITIAL_FORMS": 0,
+        },
     )
     assert response.status_code == 302
     assert Section.objects.get(key="extra").title == "Extra"

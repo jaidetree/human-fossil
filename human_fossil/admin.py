@@ -1,5 +1,7 @@
-from adminsortable2.admin import SortableAdminMixin, SortableTabularInline
+from adminsortable2.admin import SortableAdminBase, SortableAdminMixin, SortableTabularInline
 from django.contrib import admin
+from django.db import models
+from django.forms import Textarea
 
 from .models import (
     AnimationAward,
@@ -10,6 +12,8 @@ from .models import (
     Image,
     MangaPreviewPage,
     Section,
+    SectionImage,
+    SectionMeta,
 )
 from .ordering import renumber
 
@@ -107,8 +111,20 @@ class ImageAdmin(admin.ModelAdmin):
     search_fields = ("title",)
 
 
+class SectionImageInline(DragNewRowsInline):
+    model = SectionImage
+    extra = 0
+
+
+class SectionMetaInline(admin.TabularInline):
+    model = SectionMeta
+    extra = 0
+    formfield_overrides = {models.TextField: {"widget": Textarea(attrs={"rows": 3})}}
+
+
 @admin.register(Section)
-class SectionAdmin(admin.ModelAdmin):
+class SectionAdmin(SortableAdminBase, admin.ModelAdmin):
+    inlines = (SectionImageInline, SectionMetaInline)
     list_display = ("key", "title", "action", "price", "url")
     search_fields = ("key", "title", "content")
 
