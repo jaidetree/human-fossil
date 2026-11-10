@@ -12,10 +12,61 @@
 				>
 					{{ hero.title }}
 				</h1>
-				<p class="relative -mt-6 mb-8 text-2xl">{{ hero.subtitle }}</p>
 
-				<div class="prose text-lg">
-					{{ hero.content|markdownify }}
+				<div class="flex flex-col gap-4 lg:flex-row lg:gap-8 justify-between">
+					<div class="flex flex-col gap-8">
+						<p class="relative -mt-6 text-4xl">{{ hero.subtitle }}</p>
+
+						<div class="prose text-2xl">
+							{{ hero.content|markdownify }}
+						</div>
+						<div
+							class="bg-accent rounded-md px-8 py-4 flex flex-col gap-4 text-center lg:text-left lg:flex-row justify-between text-surface"
+						>
+							<p class="text-lg">
+								Follow Reb for new art, updates, and upcoming events
+							</p>
+							<div>
+								<a href="https://x.com/rebbersome" class="text-2xl">
+									<span class="fa-brands fa-twitter"
+										><span class="sr-only">Rebbersome on Twitter</span></span
+									>
+								</a>
+								<a
+									href="https://www.instagram.com/rebbersome/"
+									class="text-2xl"
+								>
+									<span class="fa-brands fa-instagram"
+										><span class="sr-only">Rebbersome on Instagram</span></span
+									>
+								</a>
+								<a href="https://www.youtube.com/@rebbersome" class="text-2xl">
+									<span class="fa-brands fa-youtube"
+										><span class="sr-only">Rebbersome on YouTube</span></span
+									>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="relative size-80 m-auto" id="oxymeter">
+						<div class="size-80 max-w-full absolute state">
+							<img
+								alt="Oxymeter Safe Oxygen Safe Glow"
+								src="/static/images/human-fossil-oxymeter-safe.webp"
+								class="w-full h-full absolute blur-md"
+							/>
+							<img
+								alt="Oxymeter Safe Oxygen Safety Level"
+								src="/static/images/human-fossil-oxymeter-safe.webp"
+								class="w-full h-full absolute"
+							/>
+						</div>
+						<img
+							alt="Oxymeter"
+							src="/static/images/human-fossil-oxymeter.webp"
+							class="size-80 max-w-full absolute"
+						/>
+					</div>
 				</div>
 			</section>
 		{% endwith %}
@@ -62,7 +113,7 @@
 							{{ callout.content|markdownify }}
 						</div>
 					</div>
-					<a class="btn text-2xl" href="{{ callout.href }}"
+					<a class="btn cta text-2xl" href="{{ callout.href }}"
 						>{{ callout.action }}</a
 					>
 				</div>
@@ -146,7 +197,7 @@
 								>${{ callout.price }}</span
 							>
 						{% endif %}
-						<a href="{{ callout.href }}" class="btn text-2xl font-bold"
+						<a href="{{ callout.href }}" class="btn cta text-2xl font-bold"
 							>{{ callout.action }}</a
 						>
 					</div>

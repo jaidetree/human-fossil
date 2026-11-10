@@ -19,10 +19,48 @@
 	--color-surface: #212720;
 	--color-accent: #defb67;
 	--color-citrus: #e5722f;
+
+	--animate-flicker: flicker 3s ease-in-out infinite;
+	@keyframes flicker {
+		0% {
+			opacity: 1;
+		}
+		95% {
+			opacity: 1;
+		}
+		99.99% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+
+	--animate-invert: invert 8s linear infinite;
+	@keyframes invert {
+		0% {
+			filter: hue-rotate(0deg) saturate(100%);
+		}
+
+		73% {
+			filter: hue-rotate(0deg) saturate(100%);
+		}
+
+		74% {
+			filter: hue-rotate(300deg) saturate(30);
+		}
+
+		100% {
+			filter: hue-rotate(300deg) saturate(30);
+		}
+	}
 }
 
 @theme inline {
 	--glow-none: 0 0 #0000;
+	--glow-xs:
+		0 0 2px var(--tw-glow-color, currentColor),
+		0 0 4px var(--tw-glow-color, currentColor);
 	--glow-sm:
 		0 0 4px var(--tw-glow-color, currentColor),
 		0 0 8px var(--tw-glow-color, currentColor);
@@ -39,6 +77,9 @@
 		0 0 72px var(--tw-glow-color, currentColor);
 
 	--inner-glow-none: 0 0 #0000;
+	--inner-glow-xs:
+		inset 0 0 2px var(--tw-inner-glow-color, currentColor),
+		inset 0 0 4px var(--tw-inner-glow-color, currentColor);
 	--inner-glow-sm:
 		inset 0 0 4px var(--tw-inner-glow-color, currentColor),
 		inset 0 0 8px var(--tw-inner-glow-color, currentColor);
@@ -97,7 +138,7 @@
 	}
 
 	.background {
-		@apply fixed w-screen h-screen top-0 left-0 -z-1 bg-blend-soft-light;
+		@apply fixed w-screen h-screen top-0 left-0 -z-1 overflow-hidden;
 		background: url(/static/images/human-fossil-bg.jpg) top left / cover;
 	}
 
@@ -173,6 +214,7 @@
 
 	.btn {
 		@apply bg-accent text-surface px-4 py-2 rounded-xl;
+		@apply glow-none hover:glow-sm hover:glow-accent transition-shadow duration-250;
 	}
 
 	#animation-callout {
@@ -230,6 +272,14 @@
 
 	#past-events .month {
 		@apply text-surface;
+	}
+
+	#oxymeter {
+		@apply absolute;
+	}
+
+	#oxymeter .state {
+		animation: var(--animate-flicker), var(--animate-invert);
 	}
 }
 
