@@ -19,41 +19,6 @@
 	--color-surface: #212720;
 	--color-accent: #defb67;
 	--color-citrus: #e5722f;
-
-	--animate-flicker: flicker 3s ease-in-out infinite;
-	@keyframes flicker {
-		0% {
-			opacity: 1;
-		}
-		95% {
-			opacity: 1;
-		}
-		99.99% {
-			opacity: 0;
-		}
-		100% {
-			opacity: 1;
-		}
-	}
-
-	--animate-invert: invert 8s linear infinite;
-	@keyframes invert {
-		0% {
-			filter: hue-rotate(0deg) saturate(100%);
-		}
-
-		73% {
-			filter: hue-rotate(0deg) saturate(100%);
-		}
-
-		74% {
-			filter: hue-rotate(300deg) saturate(30);
-		}
-
-		100% {
-			filter: hue-rotate(300deg) saturate(30);
-		}
-	}
 }
 
 @theme inline {
@@ -279,7 +244,47 @@
 	}
 
 	#oxymeter .state {
-		animation: var(--animate-flicker), var(--animate-invert);
+		animation:
+			flicker 3s ease-in-out infinite,
+			invert 8s linear infinite;
+	}
+
+	@keyframes flicker {
+		0%,
+		95% {
+			opacity: 1;
+		}
+
+		99.99% {
+			opacity: 0;
+		}
+
+		100% {
+			opacity: 1;
+		}
+	}
+
+	@keyframes invert {
+		0%,
+		73% {
+			filter: hue-rotate(0deg) saturate(1);
+		}
+
+		74%,
+		100% {
+			filter: hue-rotate(300deg) saturate(var(--invert-saturate));
+		}
+	}
+
+	#oxymeter .state {
+		--invert-saturate: 20;
+	}
+
+	/* Safari filters in Display P3, so needs far less saturation */
+	@supports (font: -apple-system-body) and (-webkit-appearance: none) {
+		#oxymeter .state {
+			--invert-saturate: 2;
+		}
 	}
 }
 
