@@ -146,7 +146,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 R2_BUCKET_NAME = env("R2_BUCKET_NAME", default=None)
 if R2_BUCKET_NAME:
     STORAGES["default"] = {
-        "BACKEND": "storages.backends.s3.S3Storage",
+        "BACKEND": "human_fossil.storage.ExtensionTypedS3Storage",
         "OPTIONS": {
             "bucket_name": R2_BUCKET_NAME,
             "endpoint_url": env("R2_ENDPOINT_URL"),

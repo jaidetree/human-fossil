@@ -55,7 +55,7 @@ def test_configures_r2_backend_when_env_vars_present(
     reloaded = reload_settings()
 
     default_storage_config = reloaded.STORAGES["default"]
-    assert default_storage_config["BACKEND"] == "storages.backends.s3.S3Storage"
+    assert default_storage_config["BACKEND"] == "human_fossil.storage.ExtensionTypedS3Storage"
 
     options = default_storage_config["OPTIONS"]
     assert options["bucket_name"] == "test-bucket"
@@ -139,3 +139,46 @@ def test_r2_configured_storage_round_trips_a_file_against_mocked_s3() -> None:
     assert storage.exists(saved_name)
     with storage.open(saved_name) as saved_file:
         assert saved_file.read() == b"human fossil"
+
+
+@pytest.fixture
+def mocked_r2_storage():
+    from human_fossil.storage import ExtensionTypedS3Storage
+
+    with mock_aws():
+        client = boto3.client("s3", region_name="us-east-1")
+        client.create_bucket(Bucket="test-bucket")
+        storage = ExtensionTypedS3Storage(
+            bucket_name="test-bucket",
+            access_key="fake-access-key",
+            secret_key="fake-secret-key",
+            region_name="us-east-1",
+            file_overwrite=False,
+        )
+        yield storage, client
+
+
+@pytest.mark.parametrize(
+    ("name", "upload_type", "stored_type"),
+    [
+        ("event_photos/shot.jpg", "image/mpo", "image/jpeg"),
+        ("event_photos/shot.png", "image/png", "image/png"),
+        ("misc/blob.unknownext", "image/mpo", "image/mpo"),
+    ],
+)
+def test_content_type_follows_extension_else_upload_type(
+    mocked_r2_storage, name: str, upload_type: str, stored_type: str
+) -> None:
+    from django.core.files.base import ContentFile
+
+    storage, client = mocked_r2_storage
+
+    class TypedUpload(ContentFile):  # type: ignore[type-arg]
+        content_type = upload_type  # what Django's ImageField attaches
+
+    upload = TypedUpload(b"bytes")
+
+    saved_name = storage.save(name, upload)
+
+    head = client.head_object(Bucket="test-bucket", Key=saved_name)
+    assert head["ContentType"] == stored_type
